@@ -11,7 +11,7 @@
             <Grid>
                 <TextBlock Name="tbPlaceholder" Text="{Binding Placeholder}" FontSize="16" Foreground="Gray" Panel.ZIndex="2" Margin="8 0 0 0" Height="auto"/>
                 <TextBox x:Name="RoundedTextBox"
-                     Width="auto" Height="25" TextChanged="RoundedTextBox_TextChanged" 
+                     Width="auto" Height="auto" TextChanged="RoundedTextBox_TextChanged" 
                      FontSize="14" Panel.ZIndex="3"
                      BorderThickness="0" Margin="6 2 0 0"
                      Background="Transparent" VerticalContentAlignment="Stretch"
