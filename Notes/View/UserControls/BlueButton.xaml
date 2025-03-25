@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="Notes.View.UserControls.BlueButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Notes.View.UserControls"
+             mc:Ignorable="d" 
+            d:DesignHeight="25" d:DesignWidth="80">
+    <UserControl.Resources>
+        <Style x:Key="DarkMaroonButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Blue"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="10" 
+                                Padding="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DarkBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Button Style="{StaticResource DarkMaroonButtonStyle}" Width="auto" Cursor="Hand">
+            <TextBlock Text="{Binding Text, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                       Foreground="white" FontSize="14" FontFamily="Harrington"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+    </Grid>
+</UserControl>
