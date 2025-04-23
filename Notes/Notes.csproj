@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <Compile Remove="View\Model\**" />
-    <EmbeddedResource Remove="View\Model\**" />
+    <EmbeddedResource Remove="View\Windows\Model\**" />
     <None Remove="View\Model\**" />
     <Page Remove="View\Model\**" />
   </ItemGroup>

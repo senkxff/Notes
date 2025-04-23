@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Notes.View;
+namespace Notes.View.Windows;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
