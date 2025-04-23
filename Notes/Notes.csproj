@@ -16,10 +16,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="View\Resources\AccountButton.png" />
+    <None Remove="View\Resources\AddButton.png" />
+    <None Remove="View\Resources\ExitButton.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="ViewModel\" />
     <Folder Include="Model\" />
-    <Folder Include="View\Resources\" />
-    <Folder Include="View\UserControls\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\Resources\AccountButton.png" />
+    <Resource Include="View\Resources\AddButton.png" />
+    <Resource Include="View\Resources\ExitButton.png" />
   </ItemGroup>
 
 </Project>
