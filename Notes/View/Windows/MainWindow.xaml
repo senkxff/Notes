@@ -16,32 +16,39 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="35"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".3*"/>
-            <ColumnDefinition Width=".7*"/>
+            <ColumnDefinition Width=".25*" MaxWidth="300" MinWidth="200"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width=".75*"/>
         </Grid.ColumnDefinitions>
         <Rectangle Grid.RowSpan="3" Fill="#181818"/>
+        <GridSplitter Width="5" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      Background="Black"  ShowsPreview="True"/>
 
         <!-- Main Buttons -->
         <uc:AccountButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
         <uc:AddButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"/>
-        <uc:ExitButton Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"/>
+        <uc:ExitButton Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"/>
         
         <!-- Title -->
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Bottom" FontSize="23" Foreground="White"
-                   Margin="10 0 0 0" FontFamily="Br"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="Тут будет заголовок заметки" 
-                   VerticalAlignment="Bottom" FontSize="23" Margin="5 0 0 0" Foreground="White" FontWeight="Black" 
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Bottom" FontSize="23" 
+                   Foreground="White" Margin="10 0 0 0" FontFamily="Br"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="Тут будет заголовок заметки" 
+                   VerticalAlignment="Bottom" FontSize="20" Margin="5 0 0 3" Foreground="White" FontWeight="Black" 
                    FontFamily="Ebrima"/>
-        
+        <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5" Orientation="Vertical" Width="Auto">
+            <uc:InputTitleTextTextBox Margin="2.5" MinWidth="150" MaxWidth="500" HorizontalAlignment="Stretch"/>
+        </StackPanel>
+
         <!-- Text -->
-        <TextBlock Grid.Row="3" Grid.Column="1" Width="auto" Height="240" VerticalAlignment="Top" Text="Текст заметки"
+        <TextBlock Grid.Row="2" Grid.Column="2" Width="auto" Height="220" VerticalAlignment="Top" Text="Текст заметки"
                    Foreground="White" FontSize="20" Margin="5"/>
-        <uc:InputNoteTextTextBox Grid.Row="2" Grid.Column="1" Height="125" VerticalAlignment="Bottom" Margin="5 0 0 5"
-                                 Width="500" HorizontalAlignment="Left"/>
+        <uc:InputNoteTextTextBox Grid.Row="2" Grid.Column="2" Margin="5 0 55 10"
+                                 HorizontalAlignment="Stretch" MinWidth="150" MaxWidth="950"/>
         
         <!-- Special Buttons -->
+        
     </Grid>
 </Window>

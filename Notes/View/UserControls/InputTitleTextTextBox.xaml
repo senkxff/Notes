@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Notes.View.UserControls.InputTitleTextTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Notes.View.UserControls"
+             mc:Ignorable="d"
+             Width="Auto" Height="Auto">
+    <Border CornerRadius="10" Background="Transparent" BorderBrush="Red" BorderThickness="1">
+        <Grid>
+            <TextBlock Name="Placeholder" Text="Новая заметка" FontSize="16" Foreground="Gray" Panel.ZIndex="0" 
+                       Margin="5 0 0 1" VerticalAlignment="Center"/>
+            <TextBox Name="InputTitle" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Panel.ZIndex="1"
+                     Background="Transparent" Margin="5 0 0 0" Foreground="White" CaretBrush="White"
+                     TextChanged="InputTitle_TextChanged" FontSize="16"/>
+        </Grid>
+    </Border>
+</UserControl>

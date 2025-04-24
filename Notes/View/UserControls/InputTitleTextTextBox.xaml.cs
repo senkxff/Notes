@@ -4,18 +4,18 @@ using System.Windows;
 namespace Notes.View.UserControls
 {
     /// <summary>
-    /// Logic of interapt for InputNoteTextTextBox.xaml
+    /// Logic of interapt for InputTitleTextTextBox.xaml
     /// </summary>
-    public partial class InputNoteTextTextBox : UserControl
+    public partial class InputTitleTextTextBox : UserControl
     {
-        public InputNoteTextTextBox()
+        public InputTitleTextTextBox()
         {
             InitializeComponent();
         }
 
-        private void InputedText_TextChanged(object sender, TextChangedEventArgs e)
+        private void InputTitle_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(InputedText.Text))
+            if (string.IsNullOrEmpty(InputTitle.Text))
             {
                 Placeholder.Visibility = Visibility.Visible;
             }
