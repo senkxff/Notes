@@ -5,14 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Notes.View.UserControls"
              mc:Ignorable="d" 
-             HorizontalAlignment="Left" VerticalAlignment="Bottom"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
              Height="100">
     <Border CornerRadius="10" Background="White">
         <Grid>
             <TextBlock Name="Placeholder" Text="Введите текст..." FontSize="16" Foreground="Gray" Margin="5 5 0 0" 
                        Panel.ZIndex="0"/>
-            <TextBox Name="InputedText" Background="Transparent" Panel.ZIndex="1" Width="auto" Height="auto" FontSize="16" Margin="4 5 0 0"
-                     BorderThickness="0" VerticalAlignment="Stretch" AcceptsReturn="True" TextChanged="InputedText_TextChanged"/>
+            <TextBox Name="InputedText" Background="Transparent" Panel.ZIndex="1" Width="auto" Height="auto" FontSize="16" 
+                     Margin="4 5 0 0" TextWrapping="Wrap" BorderThickness="0" VerticalAlignment="Stretch" AcceptsReturn="True" 
+                     TextChanged="InputedText_TextChanged" HorizontalAlignment="Stretch"/>
         </Grid>
     </Border>
 </UserControl>

@@ -18,7 +18,14 @@
   <ItemGroup>
     <None Remove="View\Resources\AccountButton.png" />
     <None Remove="View\Resources\AddButton.png" />
+    <None Remove="View\Resources\AddNoteButton.png" />
+    <None Remove="View\Resources\CreateBoldTextButton.png" />
+    <None Remove="View\Resources\CreateImportantNoteButton.png" />
+    <None Remove="View\Resources\CreateItalicTextButton.png" />
+    <None Remove="View\Resources\CreateStrikeTextButton.png" />
+    <None Remove="View\Resources\CreateUnderlineTextButton.png" />
     <None Remove="View\Resources\ExitButton.png" />
+    <None Remove="View\Resources\PinFileButton.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +36,14 @@
   <ItemGroup>
     <Resource Include="View\Resources\AccountButton.png" />
     <Resource Include="View\Resources\AddButton.png" />
+    <Resource Include="View\Resources\AddNoteButton.png" />
+    <Resource Include="View\Resources\CreateBoldTextButton.png" />
+    <Resource Include="View\Resources\CreateImportantNoteButton.png" />
+    <Resource Include="View\Resources\CreateItalicTextButton.png" />
+    <Resource Include="View\Resources\CreateStrikeTextButton.png" />
+    <Resource Include="View\Resources\CreateUnderlineTextButton.png" />
     <Resource Include="View\Resources\ExitButton.png" />
+    <Resource Include="View\Resources\PinFileButton.png" />
   </ItemGroup>
 
 </Project>
