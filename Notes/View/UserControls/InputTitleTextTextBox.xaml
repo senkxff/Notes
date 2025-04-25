@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Notes.View.UserControls"
              mc:Ignorable="d"
-             Width="Auto" Height="Auto">
+             Width="Auto" Height="25">
     <Border CornerRadius="10" Background="Transparent" BorderBrush="Red" BorderThickness="1">
         <Grid>
             <TextBlock Name="Placeholder" Text="Новая заметка" FontSize="16" Foreground="Gray" Panel.ZIndex="0" 

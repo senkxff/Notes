@@ -6,8 +6,8 @@
         xmlns:uc="clr-namespace:Notes.View.UserControls"
         xmlns:local="clr-namespace:Notes"
         mc:Ignorable="d"
-        Height="450" Width="800"
-        WindowStyle="None" Background="#1E1E1E" WindowStartupLocation="CenterScreen">
+        Height="450" Width="800" MinWidth="800"
+        WindowStyle="None" Background="#1D1D1D" WindowStartupLocation="CenterScreen">
     <WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="20"/>
     </WindowChrome.WindowChrome>
@@ -23,32 +23,67 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width=".75*"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Grid.RowSpan="3" Fill="#181818"/>
+
+        <Rectangle Grid.RowSpan="3" Fill="#191919"/>
         <GridSplitter Width="5" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      Background="Black"  ShowsPreview="True"/>
+                      Background="Red" ShowsPreview="True"/>
 
         <!-- Main Buttons -->
-        <uc:AccountButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 0"/>
-        <uc:AddButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"/>
+        <uc:AccountButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 0" 
+                          ToolTip="Войти в систему"/>
+        <uc:AddButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
+                      ToolTip="Добавить новую заметку"/>
+        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
+            <uc:CreateBoldTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Жирный текст"/>
+            <uc:CreateItalicTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Наклонный текст"/>
+            <uc:CreateStrikeTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Зачеркнутый текст"/>
+            <uc:CreateUnderlineTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Подчеркнутый текст"/>
+        </StackPanel>
         <uc:ExitButton Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"/>
-        
+
+        <!-- User Name -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Гость" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Center" 
+                   FontSize="18" FontWeight="UltraBold" FontFamily="Mistral"/>
+
         <!-- Title -->
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Bottom" FontSize="23" 
-                   Foreground="White" Margin="10 0 0 0" FontFamily="Br"/>
-        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="Тут будет заголовок заметки" 
-                   VerticalAlignment="Bottom" FontSize="20" Margin="5 0 0 3" Foreground="White" FontWeight="Black" 
-                   FontFamily="Ebrima"/>
-        <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5" Orientation="Vertical" Width="Auto">
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Bottom" FontSize="23" Foreground="White" 
+                   Margin="10 0 0 0" FontFamily="Br"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="Тут будет заголовок заметки" VerticalAlignment="Bottom" 
+                   FontSize="20" Margin="5 0 0 3" Foreground="White" FontWeight="Black" FontFamily="Ebrima"/>
+
+        <!-- Notes List -->
+        <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5" Orientation="Vertical">
             <uc:InputTitleTextTextBox Margin="2.5" MinWidth="150" MaxWidth="500" HorizontalAlignment="Stretch"/>
         </StackPanel>
 
-        <!-- Text -->
-        <TextBlock Grid.Row="2" Grid.Column="2" Width="auto" Height="220" VerticalAlignment="Top" Text="Текст заметки"
-                   Foreground="White" FontSize="20" Margin="5"/>
-        <uc:InputNoteTextTextBox Grid.Row="2" Grid.Column="2" Margin="5 0 55 10"
-                                 HorizontalAlignment="Stretch" MinWidth="150" MaxWidth="950"/>
-        
-        <!-- Special Buttons -->
-        
+        <!-- Note Content -->
+        <Grid Grid.Row="2" Grid.Column="2" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Note Text Display -->
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+                <TextBlock Text="Текст заметки" Foreground="White" FontSize="20" TextWrapping="Wrap"/>
+            </ScrollViewer>
+
+            <!-- Input Panel -->
+            <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <uc:InputNoteTextTextBox Grid.Column="0" Margin="10,0,0,10" HorizontalAlignment="Stretch"/>
+
+                <!-- Action Buttons -->
+                <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
+                    <uc:AddNoteButton Margin="0,0,0,5" ToolTip="Добавить в облако"/>
+                    <uc:PinFileButton Margin="0,0,0,5" ToolTip="Прикрепить заметку"/>
+                    <uc:CreateImportantNoteButton ToolTip="Пометить важной"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
