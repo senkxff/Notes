@@ -15,8 +15,6 @@ namespace Notes.View.UserControls
             typeof(AddButton), 
             new PropertyMetadata(null));
 
-
-
         public ICommand Command
         {
             get => (ICommand)GetValue(CommandProperty);
