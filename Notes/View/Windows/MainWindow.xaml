@@ -29,8 +29,8 @@
                       Background="Red" ShowsPreview="True"/>
 
         <!-- Main Buttons -->
-        <uc:AccountButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 0" 
-                          ToolTip="Войти в систему"/>
+        <uc:AccountButton x:Name="_AccountButton" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 0" 
+                          ToolTip="Войти в систему" MouseLeftButtonDown="_AccountButton_MouseLeftButtonDown"/>
         <uc:AddButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
                       ToolTip="Добавить новую заметку"/>
         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
@@ -39,7 +39,8 @@
             <uc:CreateStrikeTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Зачеркнутый текст"/>
             <uc:CreateUnderlineTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Подчеркнутый текст"/>
         </StackPanel>
-        <uc:ExitButton Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"/>
+        <uc:ExitButton x:Name="_ExitButton" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"
+                       MouseLeftButtonDown="_ExitButton_MouseLeftButtonDown"/>
 
         <!-- User Name -->
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Гость" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Center" 
