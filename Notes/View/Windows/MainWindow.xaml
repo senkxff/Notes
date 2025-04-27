@@ -92,7 +92,7 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
                     <uc:AddNoteButton Margin="0,0,0,5" ToolTip="Добавить в облако"/>
                     <uc:PinFileButton Margin="0,0,0,5" ToolTip="Прикрепить заметку"/>
-                    <uc:CreateImportantNoteButton ToolTip="Пометить важной"/>
+                    <uc:DeleteNoteButton ToolTip="Удалить заметку"/>
                 </StackPanel>
             </Grid>
         </Grid>
