@@ -8,6 +8,19 @@ namespace Notes.View.UserControls
     /// </summary>
     public partial class InputNoteTextTextBox : UserControl
     {
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
+            "Text",
+            typeof(string),
+            typeof(InputNoteTextTextBox),
+            new PropertyMetadata(string.Empty)
+            );
+
+        public string Text
+        {
+            get { return (string)GetValue(TextProperty); }
+            set { SetValue(TextProperty, value); }
+        }
+
         public InputNoteTextTextBox()
         {
             InitializeComponent();

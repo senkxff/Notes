@@ -29,11 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModel\" />
-    <Folder Include="Model\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="View\Resources\AccountButton.png" />
     <Resource Include="View\Resources\AddButton.png" />
     <Resource Include="View\Resources\AddNoteButton.png" />
