@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
+using Notes.Commands;
 using Notes.Model;
 
 namespace Notes.ViewModel
@@ -36,13 +38,13 @@ namespace Notes.ViewModel
             }
         }
 
-        private NoteModel selectedNode = new NoteModel();
-        public NoteModel SelectedNode
+        private NoteModel selectedNote = new NoteModel();
+        public NoteModel SelectedNote
         {
-            get { return selectedNode; }
+            get { return selectedNote; }
             set
             {
-                selectedNode = value;
+                selectedNote = value;
                 OnPropertyChanged();
             }
         }
@@ -56,6 +58,21 @@ namespace Notes.ViewModel
                 notes = value;
                 OnPropertyChanged();
             }
+        }
+
+        public NotesViewModel()
+        {
+            AddNoteCommand = new Notes.Commands.AddNoteCommand(AddNote);
+        }
+
+        public ICommand AddNoteCommand { get; }
+        private void AddNote()
+        {
+            var newNote = new NoteModel { Title = "Новая заметка", Content = "" };
+
+            Notes.Add(newNote);
+            SelectedNote = newNote;
+            InputTitle = string.Empty;
         }
     }
 }

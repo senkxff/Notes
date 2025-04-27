@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Notes.View.UserControls"
              mc:Ignorable="d"
-             Width="Auto" Height="25">
+             Width="Auto" Height="25" MinWidth="150" MaxWidth="290">
     <Border CornerRadius="10" Background="Transparent" BorderBrush="Red" BorderThickness="1">
         <Grid>
             <TextBlock Name="Placeholder" Text="Новая заметка" FontSize="16" Foreground="Gray" Panel.ZIndex="0" 
-                       Margin="5 0 0 1" VerticalAlignment="Center"/>
+                       Margin="7 0 0 1" VerticalAlignment="Center"/>
             <TextBox Name="InputTitle" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Panel.ZIndex="1"
-                     Background="Transparent" Margin="5 0 0 0" Foreground="White" CaretBrush="White"
+                     Background="Transparent" Margin="5 0 0 0" Foreground="White" CaretBrush="White" MaxLength="29"
                      TextChanged="InputTitle_TextChanged" FontSize="16" Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:InputTitleTextTextBox}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Border>

@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image Source="pack://application:,,,/Notes;component/View/Resources/AddButton.png" Cursor="Hand"/>
+        <Image Source="pack://application:,,,/Notes;component/View/Resources/AddButton.png" Cursor="Hand" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>

@@ -24,7 +24,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".25*" MaxWidth="300" MinWidth="200"/>
+            <ColumnDefinition Width=".25*" MaxWidth="305" MinWidth="200"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width=".75*"/>
         </Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
         <uc:AccountButton x:Name="_AccountButton" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 0" 
                           ToolTip="Войти в систему" MouseLeftButtonDown="_AccountButton_MouseLeftButtonDown"/>
         <uc:AddButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
-                      ToolTip="Добавить новую заметку"/>
+                      ToolTip="Добавить новую заметку" Command="{Binding AddNoteCommand}"/>
         <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
             <uc:CreateBoldTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Жирный текст"/>
             <uc:CreateItalicTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Наклонный текст"/>
@@ -54,13 +54,15 @@
         <!-- Title -->
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Bottom" FontSize="23" Foreground="White" 
                    Margin="10 0 0 0" FontFamily="Br"/>
-        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding InputTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" 
-                   FontSize="20" Margin="5 0 0 3" Foreground="White" FontWeight="Black" FontFamily="Ebrima"/>
+        <uc:InputTitleTextTextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding SelectedNote.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" 
+                   FontSize="20" Margin="5 0 0 3" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
+                 BorderThickness="0"/>
 
         <!-- Notes List -->
         <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5" Orientation="Vertical">
-            <uc:InputTitleTextTextBox Margin="2.5" MinWidth="150" MaxWidth="500" HorizontalAlignment="Stretch" 
-                                      Text="{Binding InputTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <ListBox ItemsSource="{Binding Notes}" Background="Transparent" Foreground="White" DisplayMemberPath="Title" 
+                     ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="370" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     SelectedItem="{Binding SelectedNote, Mode=TwoWay}" Margin="2.5" BorderThickness="0" FontSize="16" FontWeight="ExtraBold"/>
         </StackPanel>
 
         <!-- Note Content -->
@@ -72,7 +74,9 @@
 
             <!-- Note Text Display -->
             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden">
-                <TextBlock Text="{Binding Content, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White" FontSize="20" TextWrapping="Wrap" Height="245"/>
+                <TextBlock Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+           Foreground="White" FontSize="20" TextWrapping="Wrap" Height="245"/>
+
             </ScrollViewer>
 
             <!-- Input Panel -->
@@ -82,7 +86,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <uc:InputNoteTextTextBox Grid.Column="0" Margin="10,0,0,10" HorizontalAlignment="Stretch" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <uc:InputNoteTextTextBox Grid.Column="0" Margin="10,0,0,10" HorizontalAlignment="Stretch" Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Action Buttons -->
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
