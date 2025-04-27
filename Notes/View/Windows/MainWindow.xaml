@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:Notes.View.UserControls"
+        xmlns:viewModel="clr-namespace:Notes.ViewModel"
         xmlns:local="clr-namespace:Notes"
         mc:Ignorable="d"
         Height="450" Width="800" MinWidth="800"
@@ -11,6 +12,10 @@
     <WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="20"/>
     </WindowChrome.WindowChrome>
+    <Window.DataContext>
+        <!-- Создаётся экземпляр NotesViewModel -->
+        <viewModel:NotesViewModel/>
+    </Window.DataContext>
     <Grid>
         <!-- Grid -->
         <Grid.RowDefinitions>
@@ -49,12 +54,13 @@
         <!-- Title -->
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Bottom" FontSize="23" Foreground="White" 
                    Margin="10 0 0 0" FontFamily="Br"/>
-        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="Тут будет заголовок заметки" VerticalAlignment="Bottom" 
+        <TextBlock Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding InputTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" 
                    FontSize="20" Margin="5 0 0 3" Foreground="White" FontWeight="Black" FontFamily="Ebrima"/>
 
         <!-- Notes List -->
         <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5" Orientation="Vertical">
-            <uc:InputTitleTextTextBox Margin="2.5" MinWidth="150" MaxWidth="500" HorizontalAlignment="Stretch"/>
+            <uc:InputTitleTextTextBox Margin="2.5" MinWidth="150" MaxWidth="500" HorizontalAlignment="Stretch" 
+                                      Text="{Binding InputTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
 
         <!-- Note Content -->
@@ -65,8 +71,8 @@
             </Grid.RowDefinitions>
 
             <!-- Note Text Display -->
-            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-                <TextBlock Text="Текст заметки" Foreground="White" FontSize="20" TextWrapping="Wrap"/>
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden">
+                <TextBlock Text="{Binding Content, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White" FontSize="20" TextWrapping="Wrap" Height="245"/>
             </ScrollViewer>
 
             <!-- Input Panel -->
@@ -76,7 +82,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <uc:InputNoteTextTextBox Grid.Column="0" Margin="10,0,0,10" HorizontalAlignment="Stretch"/>
+                <uc:InputNoteTextTextBox Grid.Column="0" Margin="10,0,0,10" HorizontalAlignment="Stretch" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!-- Action Buttons -->
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
