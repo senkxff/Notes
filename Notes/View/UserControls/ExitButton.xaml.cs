@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using Notes.View.Windows;
 using Notes.View.Windows.WarningWindows;
 
 namespace Notes.View.UserControls
@@ -14,16 +12,6 @@ namespace Notes.View.UserControls
         public ExitButton()
         {
             InitializeComponent();
-        }
-
-        private void _ExitButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            ExitWarningWindow exitWarningWindow = new ExitWarningWindow();
-
-            Window ownerWindow = Window.GetWindow(this);
-            exitWarningWindow.Owner = ownerWindow;
-
-            exitWarningWindow.ShowDialog();
         }
     }
 }

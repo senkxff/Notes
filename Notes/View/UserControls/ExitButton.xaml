@@ -7,7 +7,6 @@
              mc:Ignorable="d" 
              Height="25" Width="20">
     <Grid>
-        <Image Name="_ExitButton" Source="pack://application:,,,/Notes;component/View/Resources/ExitButton.png" Cursor="Hand" 
-               MouseLeftButtonDown="_ExitButton_MouseLeftButtonDown"/>
+        <Image Name="_ExitButton" Source="pack://application:,,,/Notes;component/View/Resources/ExitButton.png" Cursor="Hand"/>
     </Grid>
 </UserControl>
