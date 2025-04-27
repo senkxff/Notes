@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Notes.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="80">
 
@@ -38,6 +39,6 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button Style="{StaticResource ModernButtonStyle}" Content="Нет" FontWeight="ExtraBold"/>
+        <Button Style="{StaticResource ModernButtonStyle}" Content="{Binding Placeholder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:GrayButton}}}" FontWeight="ExtraBold"/>
     </Grid>
 </UserControl>

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -9,20 +11,22 @@ namespace Notes.View.UserControls
     /// </summary>
     public partial class GrayButton : UserControl
     {
-        public GrayButton()
-        {
-            InitializeComponent();
-        }
+        public static readonly DependencyProperty PlaceholderProperty = DependencyProperty.Register(
+            "Placeholder",
+            typeof(string),
+            typeof(GrayButton),
+            new PropertyMetadata(string.Empty)
+            );
 
-        private string placeholder;
         public string Placeholder
         {
-            get { return placeholder; }
-            set
-            {
-                placeholder = value;
+            get {  return (string)GetValue(PlaceholderProperty); }
+            set { SetValue(PlaceholderProperty, value); }
+        }       
 
-            }
+        public GrayButton()
+        {
+            InitializeComponent(); 
         }
     }
 }

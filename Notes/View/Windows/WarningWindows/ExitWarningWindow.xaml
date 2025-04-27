@@ -15,8 +15,10 @@
                    VerticalAlignment="Center" Margin="0,0,0,50"/>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 50 0 0">
-            <uc:YesButton x:Name="YesButton" Margin="0 0 10 0" PreviewMouseLeftButtonDown="YesButton_PreviewMouseLeftButtonDown"/>
-            <uc:NoButton x:Name="NoButton" PreviewMouseLeftButtonDown="NoButton_PreviewMouseLeftButtonDown"/>
+            <uc:RedButton x:Name="YesButton" Margin="0 0 10 0" 
+                          PreviewMouseLeftButtonDown="YesButton_PreviewMouseLeftButtonDown" Placeholder="Да"/>
+            <uc:GrayButton x:Name="NoButton" PreviewMouseLeftButtonDown="NoButton_PreviewMouseLeftButtonDown" 
+                           Placeholder="Нет"/>
         </StackPanel>
     </Grid>
 </Window>

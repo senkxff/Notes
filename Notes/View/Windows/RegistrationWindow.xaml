@@ -19,11 +19,11 @@
 
         <StackPanel VerticalAlignment="Center">
             <!--<uc:TextBox Margin="0,5,0,0" Placeholder="Введите свой логин" Width="200" Height="25"/>
-            <uc:PasswordBox Margin="0,5,0,0" Placeholder="Введите свой пароль"/>
+            <uc:PasswordBox Margin="0,5,0,0" Placeholder="Введите свой пароль"/>-->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <uc:YesButton Margin="0,5,0,0" Text="Войти"/>
-                <uc:NoButton Margin="10,5,0,0" Text="Зарегистрироваться"/>
-            </StackPanel>-->
+                <uc:RedButton Margin="0,5,0,0" Placeholder="Войти"/>
+                <uc:GrayButton Margin="10,5,0,0" Placeholder="Зарегистрироваться"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>
