@@ -1,28 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Notes.View.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для DeleteNoteButton.xaml
+    /// Logic of interapt for DeleteNoteButton.xaml
     /// </summary>
     public partial class DeleteNoteButton : UserControl
     {
+        private readonly static DependencyProperty CommandProperty = DependencyProperty.Register(
+            "Command",
+            typeof(ICommand),
+            typeof(DeleteNoteButton),
+            new PropertyMetadata(null)
+            );
+
+        public ICommand Command
+        { 
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value); 
+        }
+
         public DeleteNoteButton()
         {
             InitializeComponent();
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Command?.CanExecute(null) == true)
+            {
+                Command.Execute(null);
+            }
         }
     }
 }
