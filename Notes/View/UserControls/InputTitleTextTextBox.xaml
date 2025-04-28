@@ -8,7 +8,7 @@
              Width="Auto" Height="25" MinWidth="150" MaxWidth="290">
     <Border CornerRadius="10" Background="Transparent" BorderBrush="Red" BorderThickness="1">
         <Grid>
-            <TextBlock Name="Placeholder" Text="Новая заметка" FontSize="16" Foreground="Gray" Panel.ZIndex="0" 
+            <TextBlock Name="Placeholder" Text="Заголовок заметки" FontSize="14" Foreground="Gray" Panel.ZIndex="0" 
                        Margin="7 0 0 1" VerticalAlignment="Center"/>
             <TextBox Name="InputTitle" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Panel.ZIndex="1"
                      Background="Transparent" Margin="5 0 0 0" Foreground="White" CaretBrush="White" MaxLength="29"

@@ -13,7 +13,6 @@
         <WindowChrome CornerRadius="20"/>
     </WindowChrome.WindowChrome>
     <Window.DataContext>
-        <!-- Создаётся экземпляр NotesViewModel -->
         <viewModel:NotesViewModel/>
     </Window.DataContext>
     <Grid>
@@ -60,9 +59,9 @@
 
         <!-- Notes List -->
         <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5" Orientation="Vertical">
-            <ListBox ItemsSource="{Binding Notes}" Background="Transparent" Foreground="White" DisplayMemberPath="Title" 
+            <ListBox Name="NotesViewCollection" ItemsSource="{Binding Notes}" Background="Transparent" Foreground="White" DisplayMemberPath="Title" 
                      ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="370" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     SelectedItem="{Binding SelectedNote, Mode=TwoWay}" Margin="2.5" BorderThickness="0" FontSize="16" FontWeight="ExtraBold"/>
+                     SelectedItem="{Binding SelectedNote, Mode=TwoWay}" BorderThickness="0" FontSize="16" FontWeight="ExtraBold"/>
         </StackPanel>
 
         <!-- Note Content -->
@@ -92,7 +91,7 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
                     <uc:AddNoteButton Margin="0,0,0,5" ToolTip="Добавить в облако"/>
                     <uc:PinFileButton Margin="0,0,0,5" ToolTip="Прикрепить заметку"/>
-                    <uc:DeleteNoteButton ToolTip="Удалить заметку"/>
+                    <uc:DeleteNoteButton ToolTip="Удалить заметку" Command="{Binding DeleteNoteCommand}"/>
                 </StackPanel>
             </Grid>
         </Grid>
