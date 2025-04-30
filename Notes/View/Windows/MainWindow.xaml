@@ -48,7 +48,7 @@
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Top" FontSize="23" Foreground="White" 
                    Margin="10 10 0 0" FontFamily="Br"/>
         <uc:InputTitleTextTextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding SelectedNote.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                   FontSize="20" Margin="5 0 0 3" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
+                   FontSize="20" Margin="1" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
                    BorderThickness="0" VerticalAlignment="Bottom"/>
 
         <!-- Notes List -->
@@ -66,11 +66,11 @@
             </Grid.RowDefinitions>
 
             <!-- Note Text Display -->
-            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden">
-                <TextBlock Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-           Foreground="White" FontSize="20" TextWrapping="Wrap" Height="290"/>
-
-            </ScrollViewer>
+            
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden"/>
+            <RichTextBox x:Name="richTextBox" FontSize="20" Background="Transparent" Foreground="White" 
+                             BorderThickness="0" IsReadOnly="True" Focusable="False"/>
+            <ScrollViewer/>
 
             <!-- Input Panel -->
             <Grid Grid.Row="1" HorizontalAlignment="Stretch">
@@ -84,7 +84,7 @@
                 <!-- Action Buttons -->
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
                     <uc:AddNoteButton Margin="0,0,0,5" ToolTip="Добавить в облако"/>
-                    <uc:PinFileButton Margin="0,0,0,5" ToolTip="Прикрепить изображение"/>
+                    <uc:PinFileButton Margin="0,0,0,5" ToolTip="Прикрепить изображение" Command="{Binding AddImageCommand}"/>
                     <uc:DeleteNoteButton ToolTip="Удалить заметку" Command="{Binding DeleteNoteCommand}"/>
                 </StackPanel>
             </Grid>

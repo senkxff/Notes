@@ -1,5 +1,7 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Notes.View.Windows.WarningWindows;
+using Notes.ViewModel;
 
 namespace Notes.View.Windows;
 
@@ -11,7 +13,13 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        var viewModel = new NotesViewModel();
+        viewModel.SetRichTextBox(richTextBox);
+        DataContext = viewModel;
+        DataContext = new NotesViewModel();
+        ((NotesViewModel)DataContext).SetRichTextBox(richTextBox);  
     }
+    
 
     private void _ExitButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
@@ -32,4 +40,6 @@ public partial class MainWindow : Window
 
         registrationWindow.ShowDialog();
     }
+
+
 }
