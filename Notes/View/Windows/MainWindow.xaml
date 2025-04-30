@@ -19,7 +19,6 @@
         <!-- Grid -->
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -37,12 +36,7 @@
                           ToolTip="Войти в систему" MouseLeftButtonDown="_AccountButton_MouseLeftButtonDown"/>
         <uc:AddButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
                       ToolTip="Добавить новую заметку" Command="{Binding AddNoteCommand}"/>
-        <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal">
-            <uc:CreateBoldTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Жирный текст"/>
-            <uc:CreateItalicTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Наклонный текст"/>
-            <uc:CreateStrikeTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Зачеркнутый текст"/>
-            <uc:CreateUnderlineTextButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Подчеркнутый текст"/>
-        </StackPanel>
+        
         <uc:ExitButton x:Name="_ExitButton" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"
                        MouseLeftButtonDown="_ExitButton_MouseLeftButtonDown"/>
 
@@ -51,18 +45,18 @@
                    FontSize="18" FontWeight="UltraBold" FontFamily="Mistral"/>
 
         <!-- Title -->
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Bottom" FontSize="23" Foreground="White" 
-                   Margin="10 0 0 0" FontFamily="Br"/>
-        <uc:InputTitleTextTextBox Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding SelectedNote.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" 
-                   FontSize="20" Margin="5 0 0 3" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
-                 BorderThickness="0"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Top" FontSize="23" Foreground="White" 
+                   Margin="10 10 0 0" FontFamily="Br"/>
+        <uc:InputTitleTextTextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding SelectedNote.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   FontSize="20" Margin="1" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
+                   BorderThickness="0" VerticalAlignment="Bottom"/>
 
         <!-- Notes List -->
-        <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Margin="5" Orientation="Vertical">
-            <ListBox Name="NotesViewCollection" ItemsSource="{Binding Notes}" Background="Transparent" Foreground="White" DisplayMemberPath="Title" 
-                     ScrollViewer.VerticalScrollBarVisibility="Hidden" Height="370" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                     SelectedItem="{Binding SelectedNote, Mode=TwoWay}" BorderThickness="0" FontSize="16" FontWeight="ExtraBold"/>
-        </StackPanel>
+        <ListBox Grid.Row="1" Name="NotesViewCollection" ItemsSource="{Binding Notes}" Background="Transparent" 
+                 Foreground="White" DisplayMemberPath="Title" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                 Height="370" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 SelectedItem="{Binding SelectedNote, Mode=TwoWay}" BorderThickness="0" FontSize="16" 
+                 FontWeight="ExtraBold" Margin="0 40 0 0"/>
 
         <!-- Note Content -->
         <Grid Grid.Row="2" Grid.Column="2" Margin="5">
@@ -72,11 +66,11 @@
             </Grid.RowDefinitions>
 
             <!-- Note Text Display -->
-            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden">
-                <TextBlock Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-           Foreground="White" FontSize="20" TextWrapping="Wrap" Height="245"/>
-
-            </ScrollViewer>
+            
+            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden"/>
+            <RichTextBox x:Name="richTextBox" FontSize="20" Background="Transparent" Foreground="White" 
+                             BorderThickness="0" IsReadOnly="True" Focusable="False"/>
+            <ScrollViewer/>
 
             <!-- Input Panel -->
             <Grid Grid.Row="1" HorizontalAlignment="Stretch">
@@ -85,12 +79,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <uc:InputNoteTextTextBox Grid.Column="0" Margin="10,0,0,10" HorizontalAlignment="Stretch" Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <uc:InputNoteTextTextBox Grid.Row="1"
+                            Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Margin="10,0,0,10"/>
 
                 <!-- Action Buttons -->
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
                     <uc:AddNoteButton Margin="0,0,0,5" ToolTip="Добавить в облако"/>
-                    <uc:PinFileButton Margin="0,0,0,5" ToolTip="Прикрепить заметку"/>
+                    <uc:PinFileButton Margin="0,0,0,5" ToolTip="Прикрепить изображение" Command="{Binding AddImageCommand}"/>
                     <uc:DeleteNoteButton ToolTip="Удалить заметку" Command="{Binding DeleteNoteCommand}"/>
                 </StackPanel>
             </Grid>

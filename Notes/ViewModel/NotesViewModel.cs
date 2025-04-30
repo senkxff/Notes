@@ -6,6 +6,10 @@ using Notes.Model;
 using Notes.Commands;
 using Notes.View.Windows.WarningWindows;
 using System.Windows;
+using Microsoft.Win32;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Media.Imaging;
 
 namespace Notes.ViewModel
 {
@@ -28,13 +32,13 @@ namespace Notes.ViewModel
             }
         }
 
-        private string content = "";
+        private string _content = "";
         public string Content
         {
-            get { return content; }
+            get => _content;
             set
             {
-                content = value;
+                _content = value;
                 OnPropertyChanged();
             }
         }
@@ -69,6 +73,7 @@ namespace Notes.ViewModel
         {
             AddNoteCommand = new AddNoteCommand(AddNote);
             DeleteNoteCommand = new DeleteNoteCommand(DeleteNote);
+            AddImageCommand = new AddNoteCommand(AddImageToNote);
 
             SelectedNote = notes[0];
         }
@@ -110,6 +115,43 @@ namespace Notes.ViewModel
 
                 deleteAllNotesWarningWindow.ShowDialog();
             }
+        }
+
+        public ICommand AddImageCommand { get; }
+        private void AddImageToNote()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Изображения (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|Все файлы (*.*)|*.*"
+            };
+
+           
+        }
+
+        private void InsertImageAtCursor(RichTextBox richTextBox, string imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath))
+                return;
+
+            var image = new Image
+            {
+                Source = new BitmapImage(new Uri(imagePath)),
+                Width = 150,  
+                Height = 150, 
+            };
+
+            var inlineContainer = new InlineUIContainer(image);
+
+            var caretPosition = richTextBox.CaretPosition;
+            var paragraph = caretPosition.Paragraph;
+
+            if (paragraph == null)
+            {
+                paragraph = new Paragraph();
+                richTextBox.Document.Blocks.Add(paragraph);
+            }
+
+            paragraph.Inlines.Add(inlineContainer);
         }
     }
 }
