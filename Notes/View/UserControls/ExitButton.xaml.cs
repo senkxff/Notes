@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using Notes.View.Windows.WarningWindows;
+﻿using System.Windows.Controls;
 
 namespace Notes.View.UserControls
 {

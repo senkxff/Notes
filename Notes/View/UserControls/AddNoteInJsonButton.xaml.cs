@@ -3,11 +3,11 @@
 namespace Notes.View.UserControls
 {
     /// <summary>
-    /// Logic of interapt for AccountButton.xaml
+    /// Logic of interapt for AddNoteInJsonButton.xaml
     /// </summary>
-    public partial class AccountButton : UserControl
+    public partial class AddNoteInJsonButton : UserControl
     {
-        public AccountButton()
+        public AddNoteInJsonButton()
         {
             InitializeComponent();
         }

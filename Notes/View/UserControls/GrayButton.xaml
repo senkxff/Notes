@@ -39,6 +39,6 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button Style="{StaticResource ModernButtonStyle}" Content="{Binding Placeholder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:GrayButton}}}" FontWeight="ExtraBold"/>
+        <Button x:Name="GrayBtn" Style="{StaticResource ModernButtonStyle}" Content="{Binding Placeholder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:GrayButton}}}" FontWeight="ExtraBold"/>
     </Grid>
 </UserControl>

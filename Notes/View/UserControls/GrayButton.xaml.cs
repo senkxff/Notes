@@ -1,13 +1,10 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Notes.View.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для GrayButton.xaml
+    /// Logic of interapt for GrayButton.xaml
     /// </summary>
     public partial class GrayButton : UserControl
     {
@@ -20,7 +17,7 @@ namespace Notes.View.UserControls
 
         public string Placeholder
         {
-            get {  return (string)GetValue(PlaceholderProperty); }
+            get { return (string)GetValue(PlaceholderProperty); }
             set { SetValue(PlaceholderProperty, value); }
         }       
 

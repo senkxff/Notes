@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Notes.View.UserControls.InputTitleTextTextBox"
+﻿<UserControl x:Class="Notes.View.UserControls.InputNoteTitleTextBox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,11 +8,11 @@
              Width="Auto" Height="25" MinWidth="150" MaxWidth="290">
     <Border CornerRadius="10" Background="Transparent" BorderBrush="Red" BorderThickness="1">
         <Grid>
-            <TextBlock Name="Placeholder" Text="Заголовок заметки" FontSize="14" Foreground="Gray" Panel.ZIndex="0" 
+            <TextBlock x:Name="Placeholder" Text="Заголовок заметки" FontSize="14" Foreground="Gray" Panel.ZIndex="0" 
                        Margin="7 0 0 1" VerticalAlignment="Center"/>
-            <TextBox Name="InputTitle" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Panel.ZIndex="1"
+            <TextBox x:Name="InputedTitle" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Panel.ZIndex="1"
                      Background="Transparent" Margin="5 0 0 0" Foreground="White" CaretBrush="White" MaxLength="29"
-                     TextChanged="InputTitle_TextChanged" FontSize="16" Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:InputTitleTextTextBox}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     TextChanged="InputedTitle_TextChanged" FontSize="16" Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:InputNoteTitleTextBox}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Border>
 </UserControl>

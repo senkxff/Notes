@@ -4,14 +4,14 @@ using System.Windows;
 namespace Notes.View.UserControls
 {
     /// <summary>
-    /// Logic of interapt for InputTitleTextTextBox.xaml
+    /// Logic of interapt for InputNoteTitleTextBox.xaml
     /// </summary>
-    public partial class InputTitleTextTextBox : UserControl
+    public partial class InputNoteTitleTextBox : UserControl
     {
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             "Text",
             typeof(string),
-            typeof(InputTitleTextTextBox),
+            typeof(InputNoteTitleTextBox),
             new PropertyMetadata(string.Empty)
             );
 
@@ -21,14 +21,14 @@ namespace Notes.View.UserControls
             set { SetValue(TextProperty, value); }
         }
 
-        public InputTitleTextTextBox()
+        public InputNoteTitleTextBox()
         {
             InitializeComponent();
         }
 
-        private void InputTitle_TextChanged(object sender, TextChangedEventArgs e)
+        private void InputedTitle_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(InputTitle.Text))
+            if (string.IsNullOrEmpty(InputedTitle.Text))
             {
                 Placeholder.Visibility = Visibility.Visible;
             }

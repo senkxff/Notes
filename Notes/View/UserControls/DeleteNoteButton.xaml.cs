@@ -27,7 +27,7 @@ namespace Notes.View.UserControls
             InitializeComponent();
         }
 
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void DeleteNoteBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Command?.CanExecute(null) == true)
             {

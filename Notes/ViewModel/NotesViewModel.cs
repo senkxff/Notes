@@ -1,15 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
-using Notes.Model;
-using Notes.Commands;
-using Notes.View.Windows.WarningWindows;
-using System.Windows;
-using Microsoft.Win32;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Media.Imaging;
+﻿    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Input;
+    using Microsoft.Win32;
+    using System.Windows.Media.Imaging;
+    using Notes.Commands;
+    using Notes.Model;
+    using Notes.View.Windows.WarningWindows;
 
 namespace Notes.ViewModel
 {
@@ -40,32 +38,7 @@ namespace Notes.ViewModel
             {
                 _content = value;
                 OnPropertyChanged();
-                UpdateRichTextBoxContent(); // Вызываем обновление
-            }
-        }
 
-        private RichTextBox _richTextBox;
-
-        public void SetRichTextBox(RichTextBox richTextBox)
-        {
-            _richTextBox = richTextBox;
-            UpdateRichTextBoxContent(); // Обновляем при первом присвоении
-        }
-
-        private void UpdateRichTextBoxContent()
-        {
-            if (_richTextBox != null && SelectedNote != null)
-            {
-                var currentContent = new TextRange(
-                    _richTextBox.Document.ContentStart,
-                    _richTextBox.Document.ContentEnd
-                ).Text;
-
-                if (currentContent != SelectedNote.Content)
-                {
-                    _richTextBox.Document.Blocks.Clear();
-                    _richTextBox.Document.Blocks.Add(new Paragraph(new Run(SelectedNote.Content)));
-                }
             }
         }
 
@@ -77,7 +50,6 @@ namespace Notes.ViewModel
             {
                 selectedNote = value;
                 OnPropertyChanged();
-                UpdateRichTextBoxContent();
             }
         }
 
@@ -85,10 +57,9 @@ namespace Notes.ViewModel
         {
             new NoteModel { Title = "Новая заметка", Content = "" }
         };
-
         public ObservableCollection<NoteModel> Notes
         {
-            get { return  notes; }
+            get { return notes; }
             set
             {
                 notes = value;
@@ -98,9 +69,9 @@ namespace Notes.ViewModel
 
         public NotesViewModel()
         {
-            AddNoteCommand = new AddNoteCommand(AddNote);
-            DeleteNoteCommand = new DeleteNoteCommand(DeleteNote);
-            AddImageCommand = new AddNoteCommand(AddImageToNote);
+            AddImageCommand = new CommonCommand(AddImage);
+            AddNoteCommand = new CommonCommand(AddNote);
+            DeleteNoteCommand = new CommonCommand(DeleteNote);
 
             SelectedNote = notes[0];
         }
@@ -130,7 +101,6 @@ namespace Notes.ViewModel
                     DeleteAllNotesWarningWindow deleteAllNotesWarningWindow = new DeleteAllNotesWarningWindow();
                     Window ownerWindow = Window.GetWindow(Application.Current.MainWindow);
                     deleteAllNotesWarningWindow.Owner = ownerWindow;
-
                     deleteAllNotesWarningWindow.ShowDialog();
                 }
             }
@@ -139,49 +109,49 @@ namespace Notes.ViewModel
                 DeleteAllNotesWarningWindow deleteAllNotesWarningWindow = new DeleteAllNotesWarningWindow();
                 Window ownerWindow = Window.GetWindow(Application.Current.MainWindow);
                 deleteAllNotesWarningWindow.Owner = ownerWindow;
-
                 deleteAllNotesWarningWindow.ShowDialog();
             }
         }
 
         public ICommand AddImageCommand { get; }
-        private void AddImageToNote()
+        private ObservableCollection<BitmapImage> noteImages = new ObservableCollection<BitmapImage>();
+        public ObservableCollection<BitmapImage> NoteImages
         {
-            var dialog = new OpenFileDialog
+            get => noteImages;
+            set
             {
-                Filter = "Изображения (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|Все файлы (*.*)|*.*"
-            };
-
-            if (dialog.ShowDialog() == true)
-            {
-                InsertImageAtCursor(_richTextBox, dialog.FileName);
+                noteImages = value;
+                OnPropertyChanged();
             }
         }
 
-        private void InsertImageAtCursor(RichTextBox richTextBox, string imagePath)
+        private void AddImage()
         {
-            if (string.IsNullOrEmpty(imagePath))
-                return;
-
-            var image = new Image
+            OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                Source = new BitmapImage(new Uri(imagePath)),
-                Width = 150,  
-                Height = 150, 
+                Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*"
             };
 
-            var inlineContainer = new InlineUIContainer(image);
-
-            var caretPosition = richTextBox.CaretPosition;
-            var paragraph = caretPosition.Paragraph;
-
-            if (paragraph == null)
+            if (openFileDialog.ShowDialog() == true)
             {
-                paragraph = new Paragraph();
-                richTextBox.Document.Blocks.Add(paragraph);
-            }
+                try
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(openFileDialog.FileName);
+                    bitmap.CacheOption = BitmapCacheOption.OnDemand;
+                    bitmap.EndInit();
 
-            paragraph.Inlines.Add(inlineContainer);
+                    if (SelectedNote != null)
+                    {
+                        SelectedNote.Images.Add(bitmap);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}");
+                }
+            }
         }
     }
 }

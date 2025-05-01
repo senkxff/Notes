@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="_AccountButton" Source="pack://application:,,,/Notes;component/View/Resources/AccountButton.png" Cursor="Hand"/>
+        <Image x:Name="AccountBtn" Source="pack://application:,,,/Notes;component/View/Resources/AccountButton.png" Cursor="Hand"/>
     </Grid>
 </UserControl>

@@ -5,16 +5,15 @@ using System.Windows.Input;
 namespace Notes.View.UserControls
 {
     /// <summary>
-    /// Logic of interapt for PinFileButton.xaml
+    /// Logic of interapt for AddNoteInCollectionButton.xaml
     /// </summary>
-    public partial class PinFileButton : UserControl
+    public partial class AddNoteInCollectionButton : UserControl
     {
-        private static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
-            "Command",
-            typeof(ICommand),
-            typeof(PinFileButton), 
-            new PropertyMetadata(null)
-            );
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
+            "Command", 
+            typeof(ICommand), 
+            typeof(AddNoteInCollectionButton), 
+            new PropertyMetadata(null));
 
         public ICommand Command
         {
@@ -22,12 +21,12 @@ namespace Notes.View.UserControls
             set => SetValue(CommandProperty, value);
         }
 
-        public PinFileButton()
+        public AddNoteInCollectionButton()
         {
             InitializeComponent();
         }
 
-        private void Image_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void AddNoteInCollectionBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Command?.CanExecute(null) == true)
             {

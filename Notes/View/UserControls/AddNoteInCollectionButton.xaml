@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Notes.View.UserControls.AddButton"
+﻿<UserControl x:Class="Notes.View.UserControls.AddNoteInCollectionButton"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image Source="pack://application:,,,/Notes;component/View/Resources/AddButton.png" Cursor="Hand" 
-               MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+        <Image x:Name="AddNoteInCollectionBtn" Source="pack://application:,,,/Notes;component/View/Resources/AddNoteInCollectionButton.png" Cursor="Hand" 
+               MouseLeftButtonDown="AddNoteInCollectionBtn_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>
