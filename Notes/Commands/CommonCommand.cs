@@ -2,11 +2,11 @@
 
 namespace Notes.Commands
 {
-    public class AddNoteCommand : ICommand
+    class CommonCommand : ICommand
     {
         private readonly Action _execute;
 
-        public AddNoteCommand(Action execute)
+        public CommonCommand(Action execute)
         {
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
         }
@@ -17,7 +17,7 @@ namespace Notes.Commands
             remove { }
         }
 
-        public bool CanExecute(object? parameter) => true;
-        public void Execute(object? parameter) => _execute();
+        public bool CanExecute(object? parametr) => true;
+        public void Execute(object? parametr) => _execute();
     }
 }

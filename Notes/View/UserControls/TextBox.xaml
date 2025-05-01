@@ -13,9 +13,9 @@
                            Text="{Binding Placeholder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:TextBox}}}" 
                            FontSize="16" Foreground="Gray" Panel.ZIndex="2" Margin="8 0 0 0" Height="auto"
                            />
-                <TextBox x:Name="MyTextBox" Width="auto" Height="auto" FontSize="14" Panel.ZIndex="3"
+                <TextBox x:Name="InputedText" Width="auto" Height="auto" FontSize="14" Panel.ZIndex="3"
                          BorderThickness="0" Margin="6 2 0 0" Background="Transparent" VerticalContentAlignment="Stretch"
-                         AcceptsReturn="True" TextChanged="MyTextBox_TextChanged"/>
+                         AcceptsReturn="True" TextChanged="InputedText_TextChanged"/>
             </Grid>
         </Border>
     </Grid>

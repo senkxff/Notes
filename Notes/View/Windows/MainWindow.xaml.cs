@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using Notes.View.Windows.WarningWindows;
 using Notes.ViewModel;
 
@@ -13,33 +12,26 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        var viewModel = new NotesViewModel();
-        viewModel.SetRichTextBox(richTextBox);
-        DataContext = viewModel;
         DataContext = new NotesViewModel();
-        ((NotesViewModel)DataContext).SetRichTextBox(richTextBox);  
     }
-    
 
-    private void _ExitButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void ExitBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        ExitWarningWindow exitWarningWindow = new ExitWarningWindow();
+        ExitWarningWindow exitWarningWindow = new();
 
-        Window ownerWindow = Window.GetWindow(this);
+        Window ownerWindow = GetWindow(this);
         exitWarningWindow.Owner = ownerWindow;
 
         exitWarningWindow.ShowDialog();
     }
 
-    private void _AccountButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    private void AccountBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        RegistrationWindow registrationWindow = new RegistrationWindow();
+        RegistrationWindow registrationWindow = new();
 
-        Window ownerWindow = Window.GetWindow(this);
+        Window ownerWindow = GetWindow(this);
         registrationWindow.Owner = ownerWindow;
 
         registrationWindow.ShowDialog();
     }
-
-
 }

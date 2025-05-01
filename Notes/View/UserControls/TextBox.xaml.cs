@@ -26,9 +26,9 @@ namespace Notes.View.UserControls
             InitializeComponent();
         }
 
-        private void MyTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void InputedText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(MyTextBox.Text))
+            if (string.IsNullOrEmpty(InputedText.Text))
             {
                 tbPlaceholder.Visibility = Visibility.Visible;
             }

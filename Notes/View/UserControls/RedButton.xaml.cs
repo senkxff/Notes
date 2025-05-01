@@ -4,7 +4,7 @@ using System.Windows.Controls;
 namespace Notes.View.UserControls
 {
     /// <summary>
-    /// Logic of interapt for YesButton.xaml
+    /// Logic of interapt for RedButton.xaml
     /// </summary>
     public partial class RedButton : UserControl
     {

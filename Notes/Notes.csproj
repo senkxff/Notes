@@ -17,20 +17,17 @@
 
   <ItemGroup>
     <None Remove="View\Resources\AccountButton.png" />
-    <None Remove="View\Resources\AddButton.png" />
-    <None Remove="View\Resources\AddNoteButton.png" />
     <None Remove="View\Resources\DeleteNoteButton.png" />
     <None Remove="View\Resources\ExitButton.png" />
-    <None Remove="View\Resources\PinFileButton.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="View\Resources\AccountButton.png" />
-    <Resource Include="View\Resources\AddButton.png" />
-    <Resource Include="View\Resources\AddNoteButton.png" />
+    <Resource Include="View\Resources\AddNoteInCollectionButton.png" />
+    <Resource Include="View\Resources\AddNoteInJsonButton.png" />
     <Resource Include="View\Resources\DeleteNoteButton.png" />
     <Resource Include="View\Resources\ExitButton.png" />
-    <Resource Include="View\Resources\PinFileButton.png" />
+    <Resource Include="View\Resources\PinImageButton.png" />
   </ItemGroup>
 
 </Project>
