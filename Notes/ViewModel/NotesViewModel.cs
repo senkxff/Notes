@@ -40,6 +40,32 @@ namespace Notes.ViewModel
             {
                 _content = value;
                 OnPropertyChanged();
+                UpdateRichTextBoxContent(); // Вызываем обновление
+            }
+        }
+
+        private RichTextBox _richTextBox;
+
+        public void SetRichTextBox(RichTextBox richTextBox)
+        {
+            _richTextBox = richTextBox;
+            UpdateRichTextBoxContent(); // Обновляем при первом присвоении
+        }
+
+        private void UpdateRichTextBoxContent()
+        {
+            if (_richTextBox != null && SelectedNote != null)
+            {
+                var currentContent = new TextRange(
+                    _richTextBox.Document.ContentStart,
+                    _richTextBox.Document.ContentEnd
+                ).Text;
+
+                if (currentContent != SelectedNote.Content)
+                {
+                    _richTextBox.Document.Blocks.Clear();
+                    _richTextBox.Document.Blocks.Add(new Paragraph(new Run(SelectedNote.Content)));
+                }
             }
         }
 
@@ -51,6 +77,7 @@ namespace Notes.ViewModel
             {
                 selectedNote = value;
                 OnPropertyChanged();
+                UpdateRichTextBoxContent();
             }
         }
 
@@ -125,7 +152,10 @@ namespace Notes.ViewModel
                 Filter = "Изображения (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|Все файлы (*.*)|*.*"
             };
 
-           
+            if (dialog.ShowDialog() == true)
+            {
+                InsertImageAtCursor(_richTextBox, dialog.FileName);
+            }
         }
 
         private void InsertImageAtCursor(RichTextBox richTextBox, string imagePath)

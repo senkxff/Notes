@@ -14,8 +14,10 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         var viewModel = new NotesViewModel();
+        viewModel.SetRichTextBox(richTextBox);
         DataContext = viewModel;
         DataContext = new NotesViewModel();
+        ((NotesViewModel)DataContext).SetRichTextBox(richTextBox);  
     }
     
 
