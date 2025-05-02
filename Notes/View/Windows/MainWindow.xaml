@@ -32,16 +32,13 @@
                       Background="Red" ShowsPreview="True"/>
 
         <!-- Main Buttons -->
-        <uc:AccountButton x:Name="AccountBtn" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10 0 0 0" 
-                          ToolTip="Войти в систему" MouseLeftButtonDown="AccountBtn_MouseLeftButtonDown"/>
         <uc:AddNoteInCollectionButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
                       ToolTip="Добавить новую заметку" Command="{Binding AddNoteCommand}"/>
 
         <uc:ExitButton x:Name="ExitBtn" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"
                        MouseLeftButtonDown="ExitBtn_MouseLeftButtonDown"/>
 
-        <!-- User Name -->
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Гость" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Center" 
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Notes" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Center" 
                    FontSize="18" FontWeight="UltraBold" FontFamily="Mistral"/>
 
         <!-- Title -->

@@ -24,14 +24,4 @@ public partial class MainWindow : Window
 
         exitWarningWindow.ShowDialog();
     }
-
-    private void AccountBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    {
-        RegistrationWindow registrationWindow = new();
-
-        Window ownerWindow = GetWindow(this);
-        registrationWindow.Owner = ownerWindow;
-
-        registrationWindow.ShowDialog();
-    }
 }
