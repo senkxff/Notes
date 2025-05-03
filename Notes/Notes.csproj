@@ -16,13 +16,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="View\Resources\AccountButton.png" />
     <None Remove="View\Resources\DeleteNoteButton.png" />
     <None Remove="View\Resources\ExitButton.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="View\Resources\AccountButton.png" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.69.0.3740" />
+    <PackageReference Include="Google.Cloud.Storage.V1" Version="4.13.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="View\Resources\AddNoteInCollectionButton.png" />
     <Resource Include="View\Resources\AddNoteInJsonButton.png" />
     <Resource Include="View\Resources\DeleteNoteButton.png" />

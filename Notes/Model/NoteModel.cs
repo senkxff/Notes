@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
+using Newtonsoft.Json;
 
 namespace Notes.Model
 {
@@ -19,11 +20,14 @@ namespace Notes.Model
             set { content = value; }
         }
 
-        private ObservableCollection<BitmapImage> images = new ObservableCollection<BitmapImage>();
-        public ObservableCollection<BitmapImage> Images
+        private ObservableCollection<string> imagesBase64 = new();
+        public ObservableCollection<string> ImagesBase64
         {
-            get { return images; }
-            set { images = value; }
+            get { return imagesBase64; }
+            set { imagesBase64 = value; }
         }
+
+        [JsonIgnore]
+        public ObservableCollection<BitmapImage> Images { get; set; } = new ObservableCollection<BitmapImage>();
     }   
 }
