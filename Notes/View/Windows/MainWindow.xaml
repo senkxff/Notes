@@ -99,7 +99,7 @@
 
                 <!-- Action Buttons -->
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
-                    <uc:AddNoteInJsonButton Margin="0,0,0,5" ToolTip="Добавить в облако"/>
+                    <uc:AddNoteInJsonButton Margin="0,0,0,5" ToolTip="Добавить в облако" Command="{Binding SaveNoteCommand}"/>
                     <uc:PinImageButton Margin="0,0,0,5" ToolTip="Прикрепить изображение" Command="{Binding AddImageCommand}"/>
                     <uc:DeleteNoteButton ToolTip="Удалить заметку" Command="{Binding DeleteNoteCommand}"/>
                 </StackPanel>
