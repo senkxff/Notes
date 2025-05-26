@@ -25,7 +25,7 @@ namespace Notes.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string inputTitle = "";
+        private string inputTitle = "Новая задача";
         public string InputTitle
         {
             get { return inputTitle; }
@@ -48,8 +48,8 @@ namespace Notes.ViewModel
             }
         }
 
-        private NoteModel selectedNote = new NoteModel();
-        public NoteModel SelectedNote
+        private TaskModel selectedNote = new TaskModel();
+        public TaskModel SelectedNote
         {
             get { return selectedNote; }
             set
@@ -59,11 +59,11 @@ namespace Notes.ViewModel
             }
         }
 
-        private ObservableCollection<NoteModel> notes = new ObservableCollection<NoteModel>()
+        private ObservableCollection<TaskModel> notes = new ObservableCollection<TaskModel>()
         {
-            new NoteModel { Title = "Новая заметка", Content = "" }
+            new TaskModel { Title = "Дата задачи", Content = "" }
         };
-        public ObservableCollection<NoteModel> Notes
+        public ObservableCollection<TaskModel> Notes
         {
             get { return notes; }
             set
@@ -88,7 +88,7 @@ namespace Notes.ViewModel
         public ICommand AddNoteCommand { get; }
         private void AddNote()
         {
-            var newNote = new NoteModel { Title = "Новая заметка", Content = "" };
+            var newNote = new TaskModel { Title = "Новая задача", Content = "" };
 
             Notes.Add(newNote);
             SelectedNote = newNote;
@@ -197,7 +197,7 @@ namespace Notes.ViewModel
                     credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                         GoogleClientSecrets.FromStream(stream).Secrets,
                         new[] { DriveService.Scope.Drive },
-                        "user",
+                        "user3",
                         CancellationToken.None,
                         new FileDataStore(credPath, true));
                 }
@@ -244,7 +244,7 @@ namespace Notes.ViewModel
                     using (var reader = new StreamReader(memoryStream))
                     {
                         string downloadedJson = await reader.ReadToEndAsync();
-                        var updatedNotes = JsonConvert.DeserializeObject<ObservableCollection<NoteModel>>(downloadedJson);
+                        var updatedNotes = JsonConvert.DeserializeObject<ObservableCollection<TaskModel>>(downloadedJson);
 
                         if (updatedNotes != null)
                         {
@@ -278,7 +278,7 @@ namespace Notes.ViewModel
             if (File.Exists(localFilePath))
             {
                 string json = await File.ReadAllTextAsync(localFilePath);
-                var loadedNotes = JsonConvert.DeserializeObject<ObservableCollection<NoteModel>>(json);
+                var loadedNotes = JsonConvert.DeserializeObject<ObservableCollection<TaskModel>>(json);
 
                 if (loadedNotes != null)
                 {
@@ -301,7 +301,7 @@ namespace Notes.ViewModel
             if (File.Exists(localFilePath))
             {
                 string json = await File.ReadAllTextAsync(localFilePath);
-                var loadedNotes = JsonConvert.DeserializeObject<ObservableCollection<NoteModel>>(json);
+                var loadedNotes = JsonConvert.DeserializeObject<ObservableCollection<TaskModel>>(json);
                 if (loadedNotes != null)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
@@ -309,7 +309,6 @@ namespace Notes.ViewModel
                         notes.Clear();
                         foreach (var note in loadedNotes)
                         {
-                            // Восстанавливаем изображения из Base64-строк.
                             note.Images.Clear();
                             foreach (var base64 in note.ImagesBase64)
                             {

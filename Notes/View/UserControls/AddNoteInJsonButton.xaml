@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="AddNoteInJsonBtn" Source="pack://application:,,,/Notes;component/View/Resources/AddNoteInJsonButton.png" Cursor="Hand" 
+        <Image x:Name="AddNoteInJsonBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/AddNoteInJsonButton.png" Cursor="Hand" 
                MouseLeftButtonDown="AddNoteInJsonBtn_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>

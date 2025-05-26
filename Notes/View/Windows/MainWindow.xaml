@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:Notes.ViewModel"
         xmlns:local="clr-namespace:Notes"
         mc:Ignorable="d"
-        Height="450" Width="800" MinWidth="800"
+        Height="450" Width="800" MinWidth="800" 
         WindowStyle="None" Background="#1D1D1D" WindowStartupLocation="CenterScreen">
     <WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="20"/>
@@ -38,22 +38,22 @@
         <uc:ExitButton x:Name="ExitBtn" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"
                        MouseLeftButtonDown="ExitBtn_MouseLeftButtonDown"/>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Notes" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Center" 
-                   FontSize="18" FontWeight="UltraBold" FontFamily="Mistral"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Трекер задач" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Left" 
+                   FontSize="18" FontWeight="UltraBold" FontFamily="Mistral" Margin="10 0 0 0"/>
 
         <!-- Title -->
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши заметки:" VerticalAlignment="Top" FontSize="23" Foreground="White" 
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши задачи:" VerticalAlignment="Top" FontSize="23" Foreground="White" 
                    Margin="10 10 0 0" FontFamily="Br"/>
-        <uc:InputNoteTitleTextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Text="{Binding SelectedNote.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                   FontSize="20" Margin="10 0 0 0" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
+        <uc:InputNoteTitleTextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left"
+                   FontSize="20" Margin="20 0 0 0" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
                    BorderThickness="0" VerticalAlignment="Bottom"/>
 
         <!-- Notes List -->
         <ListBox Grid.Row="1" Name="NotesViewCollection" ItemsSource="{Binding Notes}" Background="Transparent" 
                  Foreground="White" DisplayMemberPath="Title" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
-                 Height="370" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 Height="auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  SelectedItem="{Binding SelectedNote, Mode=TwoWay}" BorderThickness="0" FontSize="16" 
-                 FontWeight="ExtraBold" Margin="0 40 0 0"/>
+                 FontWeight="ExtraBold" Margin="10 40 0 0" VerticalAlignment="Top"/>
 
         <!-- Note Content -->
         <Grid Grid.Row="2" Grid.Column="2" Margin="5">
@@ -79,9 +79,12 @@
                     </ItemsControl>
 
                     <!-- Text -->
-                    <TextBlock x:Name="TextBox" FontSize="20" Background="Transparent" Foreground="White" 
-                   Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                   TextWrapping="Wrap" Margin="0 10 0 0"/>
+                    <TextBlock x:Name="Title" FontSize="25" Background="Transparent" Foreground="White" FontWeight="Black"
+                   Text="{Binding SelectedNote.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                   TextWrapping="Wrap" Margin="0 0 0 0"/>
+                    <TextBlock x:Name="Content" FontSize="18" Background="Transparent" Foreground="White" 
+                               Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+
                 </StackPanel>
             </ScrollViewer>
 
