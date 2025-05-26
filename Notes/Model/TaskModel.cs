@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 
 namespace Notes.Model
 {
-    class NoteModel
+    class TaskModel
     {
-        private string title = string.Empty;
+        private string title = "Новая задача";
         public string Title
         {
             get { return title; }

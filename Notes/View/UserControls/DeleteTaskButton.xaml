@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="DeleteNoteBtn" Source="pack://application:,,,/Notes;component/View/Resources/DeleteNoteButton.png" Cursor="Hand"
+        <Image x:Name="DeleteNoteBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/DeleteNoteButton.png" Cursor="Hand"
                PreviewMouseLeftButtonDown="DeleteNoteBtn_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>

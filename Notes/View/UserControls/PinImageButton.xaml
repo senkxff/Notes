@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="PinImageBtn" Source="pack://application:,,,/Notes;component/View/Resources/PinImageButton.png" Cursor="Hand"
+        <Image x:Name="PinImageBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/PinImageButton.png" Cursor="Hand"
                PreviewMouseLeftButtonDown="PinImageBtn_PreviewMouseLeftButtonDown"/>
     </Grid>
 </UserControl>

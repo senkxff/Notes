@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="AddNoteInCollectionBtn" Source="pack://application:,,,/Notes;component/View/Resources/AddNoteInCollectionButton.png" Cursor="Hand" 
+        <Image x:Name="AddNoteInCollectionBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/AddNoteInCollectionButton.png" Cursor="Hand" 
                MouseLeftButtonDown="AddNoteInCollectionBtn_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>

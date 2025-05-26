@@ -8,10 +8,10 @@
              Width="Auto" Height="25" MinWidth="150" MaxWidth="290">
     <Border CornerRadius="10" Background="Transparent" BorderBrush="Red" BorderThickness="1">
         <Grid>
-            <TextBlock x:Name="Placeholder" Text="Заголовок заметки" FontSize="14" Foreground="Gray" Panel.ZIndex="0" 
-                       Margin="7 0 0 1" VerticalAlignment="Center"/>
-            <TextBox x:Name="InputedTitle" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Panel.ZIndex="1"
-                     Background="Transparent" Margin="5 0 0 0" Foreground="White" CaretBrush="White" MaxLength="29"
+            <TextBlock x:Name="Placeholder" Text="Дата задачи" FontSize="14" Foreground="Gray" Panel.ZIndex="0" 
+                       Margin="7 0 0 1" VerticalAlignment="Center" IsHitTestVisible="False"/>
+            <TextBox x:Name="InputedTitle" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Panel.ZIndex="3"
+                     Background="Transparent" Margin="5 0 0 1" Foreground="White" CaretBrush="White" MaxLength="29"
                      TextChanged="InputedTitle_TextChanged" FontSize="16" Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:InputNoteTitleTextBox}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Border>
