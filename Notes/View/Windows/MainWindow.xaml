@@ -1,19 +1,19 @@
-﻿<Window x:Class="Notes.View.Windows.MainWindow"
+﻿<Window x:Class="TasksTracker.View.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:uc="clr-namespace:Notes.View.UserControls"
-        xmlns:viewModel="clr-namespace:Notes.ViewModel"
-        xmlns:local="clr-namespace:Notes"
+        xmlns:uc="clr-namespace:TasksTracker.View.UserControls"
+        xmlns:viewModel="clr-namespace:TasksTracker.ViewModel"
+        xmlns:local="clr-namespace:TasksTracker.View.UserControls"
         mc:Ignorable="d"
-        Height="450" Width="800" MinWidth="800" 
+        Height="450" Width="800" MinWidth="800"
         WindowStyle="None" Background="#1D1D1D" WindowStartupLocation="CenterScreen">
     <WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="20"/>
     </WindowChrome.WindowChrome>
     <Window.DataContext>
-        <viewModel:NotesViewModel/>
+        <viewModel:TasksViewModel/>
     </Window.DataContext>
     <Grid>
         <!-- Grid -->
@@ -32,8 +32,8 @@
                       Background="Red" ShowsPreview="True"/>
 
         <!-- Main Buttons -->
-        <uc:AddNoteInCollectionButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
-                      ToolTip="Добавить новую заметку" Command="{Binding AddNoteCommand}"/>
+        <uc:AddTaskInCollectionButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
+                      ToolTip="Добавить новую заметку" Command="{Binding AddTaskCommand}"/>
 
         <uc:ExitButton x:Name="ExitBtn" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"
                        MouseLeftButtonDown="ExitBtn_MouseLeftButtonDown"/>
@@ -44,12 +44,12 @@
         <!-- Title -->
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши задачи:" VerticalAlignment="Top" FontSize="23" Foreground="White" 
                    Margin="10 10 0 0" FontFamily="Br"/>
-        <uc:InputNoteTitleTextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left"
-                   FontSize="20" Margin="20 0 0 0" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
-                   BorderThickness="0" VerticalAlignment="Bottom"/>
+        <uc:InputTaskTitleTextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left"
+                   FontSize="20" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
+                   BorderThickness="0" VerticalAlignment="Bottom" Margin="5,0,0,0"/>
 
         <!-- Notes List -->
-        <ListBox Grid.Row="1" Name="NotesViewCollection" ItemsSource="{Binding Notes}" Background="Transparent" 
+        <ListBox Grid.Row="1" Name="NotesViewCollection" ItemsSource="{Binding Tasks}" Background="Transparent" 
                  Foreground="White" DisplayMemberPath="Title" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
                  Height="auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  SelectedItem="{Binding SelectedNote, Mode=TwoWay}" BorderThickness="0" FontSize="16" 
@@ -65,7 +65,7 @@
             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
                 <StackPanel>
                     <!-- Image -->
-                    <ItemsControl ItemsSource="{Binding SelectedNote.Images}">
+                    <ItemsControl ItemsSource="{Binding SelectedTask.Images}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel />
@@ -79,11 +79,11 @@
                     </ItemsControl>
 
                     <!-- Text -->
-                    <TextBlock x:Name="Title" FontSize="25" Background="Transparent" Foreground="White" FontWeight="Black"
-                   Text="{Binding SelectedNote.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                   TextWrapping="Wrap" Margin="0 0 0 0"/>
+                    <TextBox x:Name="Title" FontSize="25" Background="Transparent" Foreground="White" FontWeight="Black"
+                       Text="{Binding SelectedTask.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                       TextWrapping="Wrap" Margin="0 0 0 0" CaretBrush="White" BorderThickness="0"/>
                     <TextBlock x:Name="Content" FontSize="18" Background="Transparent" Foreground="White" 
-                               Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+                               Text="{Binding SelectedTask.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
 
                 </StackPanel>
             </ScrollViewer>
@@ -96,15 +96,15 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <uc:InputNoteTextTextBox Grid.Row="1"
-                            Text="{Binding SelectedNote.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <uc:InputTaskTextTextBox Grid.Row="1"
+                            Text="{Binding SelectedTask.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             Margin="10,0,0,10"/>
 
                 <!-- Action Buttons -->
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
-                    <uc:AddNoteInJsonButton Margin="0,0,0,5" ToolTip="Добавить в облако" Command="{Binding SaveNoteCommand}"/>
+                    <uc:AddTaskInJsonButton Margin="0,0,0,5" ToolTip="Добавить в облако" Command="{Binding SaveTaskCommand}"/>
                     <uc:PinImageButton Margin="0,0,0,5" ToolTip="Прикрепить изображение" Command="{Binding AddImageCommand}"/>
-                    <uc:DeleteNoteButton ToolTip="Удалить заметку" Command="{Binding DeleteNoteCommand}"/>
+                    <uc:DeleteTaskButton ToolTip="Удалить заметку" Command="{Binding DeleteTaskCommand}"/>
                 </StackPanel>
             </Grid>
         </Grid>

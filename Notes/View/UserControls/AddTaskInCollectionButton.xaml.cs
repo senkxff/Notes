@@ -2,17 +2,17 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Notes.View.UserControls
+namespace TasksTracker.View.UserControls
 {
     /// <summary>
-    /// Logic of interapt for AddNoteInCollectionButton.xaml
+    /// Logic of interapt for AddTaskInCollectionButton.xaml
     /// </summary>
-    public partial class AddNoteInCollectionButton : UserControl
+    public partial class AddTaskInCollectionButton : UserControl
     {
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
             "Command", 
             typeof(ICommand), 
-            typeof(AddNoteInCollectionButton), 
+            typeof(AddTaskInCollectionButton), 
             new PropertyMetadata(null));
 
         public ICommand Command
@@ -21,12 +21,12 @@ namespace Notes.View.UserControls
             set => SetValue(CommandProperty, value);
         }
 
-        public AddNoteInCollectionButton()
+        public AddTaskInCollectionButton()
         {
             InitializeComponent();
         }
 
-        private void AddNoteInCollectionBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void AddTaskInCollectionBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Command?.CanExecute(null) == true)
             {

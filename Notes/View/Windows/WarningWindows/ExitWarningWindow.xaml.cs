@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace Notes.View.Windows.WarningWindows
+namespace TasksTracker.View.Windows.WarningWindows
 {
     public partial class ExitWarningWindow : Window
     {

@@ -1,13 +1,13 @@
-﻿<UserControl x:Class="Notes.View.UserControls.DeleteNoteButton"
+﻿<UserControl x:Class="TasksTracker.View.UserControls.DeleteTaskButton"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Notes.View.UserControls"
+             xmlns:local="clr-namespace:TasksTracker.View.UserControls"
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="DeleteNoteBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/DeleteNoteButton.png" Cursor="Hand"
-               PreviewMouseLeftButtonDown="DeleteNoteBtn_MouseLeftButtonDown"/>
+        <Image x:Name="DeleteTaskBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/DeleteTaskButton.png" Cursor="Hand"
+               PreviewMouseLeftButtonDown="DeleteTaskBtn_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>

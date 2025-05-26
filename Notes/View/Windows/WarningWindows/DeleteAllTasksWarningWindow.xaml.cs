@@ -1,21 +1,21 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace Notes.View.Windows.WarningWindows
+namespace TasksTracker.View.Windows.WarningWindows
 {
     /// <summary>
-    /// Logic of interapt for DeleteAllNotesWarningWindow.xaml
+    /// Logic of interapt for DeleteAllTasksWarningWindow.xaml
     /// </summary>
-    public partial class DeleteAllNotesWarningWindow : Window
+    public partial class DeleteAllTasksWarningWindow : Window
     {
-        public DeleteAllNotesWarningWindow()
+        public DeleteAllTasksWarningWindow()
         {
             InitializeComponent();
         }
 
         private void AgreeButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }
