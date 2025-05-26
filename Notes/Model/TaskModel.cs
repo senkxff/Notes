@@ -2,10 +2,17 @@
 using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 
-namespace Notes.Model
+namespace TasksTracker.Model
 {
     class TaskModel
     {
+        private DateOnly date;
+        public DateOnly Date
+        {
+            get { return date; }
+            set { date = value; }
+        }
+
         private string title = "Новая задача";
         public string Title
         {

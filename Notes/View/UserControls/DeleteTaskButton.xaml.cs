@@ -2,17 +2,17 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Notes.View.UserControls
+namespace TasksTracker.View.UserControls
 {
     /// <summary>
-    /// Logic of interapt for DeleteNoteButton.xaml
+    /// Logic of interapt for DeleteTaskButton.xaml
     /// </summary>
-    public partial class DeleteNoteButton : UserControl
+    public partial class DeleteTaskButton : UserControl
     {
         private readonly static DependencyProperty CommandProperty = DependencyProperty.Register(
             "Command",
             typeof(ICommand),
-            typeof(DeleteNoteButton),
+            typeof(DeleteTaskButton),
             new PropertyMetadata(null)
             );
 
@@ -22,12 +22,12 @@ namespace Notes.View.UserControls
             set => SetValue(CommandProperty, value); 
         }
 
-        public DeleteNoteButton()
+        public DeleteTaskButton()
         {
             InitializeComponent();
         }
 
-        private void DeleteNoteBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void DeleteTaskBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Command?.CanExecute(null) == true)
             {

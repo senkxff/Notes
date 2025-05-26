@@ -1,27 +1,28 @@
 ﻿using System.Windows;
-using Notes.View.Windows.WarningWindows;
-using Notes.ViewModel;
+using TasksTracker.View.Windows.WarningWindows;
+using TasksTracker.ViewModel;
 
-namespace Notes.View.Windows;
-
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class MainWindow : Window
+namespace TasksTracker.View.Windows
 {
-    public MainWindow()
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
-        DataContext = new NotesViewModel();
-    }
+        public MainWindow()
+        {
+            InitializeComponent();
+            DataContext = new TasksViewModel();
+        }
 
-    private void ExitBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    {
-        ExitWarningWindow exitWarningWindow = new();
+        private void ExitBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ExitWarningWindow exitWarningWindow = new();
 
-        Window ownerWindow = GetWindow(this);
-        exitWarningWindow.Owner = ownerWindow;
+            Window ownerWindow = GetWindow(this);
+            exitWarningWindow.Owner = ownerWindow;
 
-        exitWarningWindow.ShowDialog();
+            exitWarningWindow.ShowDialog();
+        }
     }
 }

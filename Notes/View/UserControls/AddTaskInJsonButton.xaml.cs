@@ -2,17 +2,17 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Notes.View.UserControls
+namespace TasksTracker.View.UserControls
 {
     /// <summary>
-    /// Logic of interapt for AddNoteInJsonButton.xaml
+    /// Logic of interapt for AddTaskInJsonButton.xaml
     /// </summary>
-    public partial class AddNoteInJsonButton : UserControl
+    public partial class AddTaskInJsonButton : UserControl
     {
         private static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
             "Command",
             typeof(ICommand),
-            typeof(AddNoteInJsonButton),
+            typeof(AddTaskInJsonButton),
             new PropertyMetadata(null)
             );
 
@@ -22,12 +22,12 @@ namespace Notes.View.UserControls
             set => SetValue(CommandProperty, value); 
         }
 
-        public AddNoteInJsonButton()
+        public AddTaskInJsonButton()
         {
             InitializeComponent();
         }
 
-        private void AddNoteInJsonBtn_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void AddTaskInJsonBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (Command?.CanExecute(null) == true)
             {

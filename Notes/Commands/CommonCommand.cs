@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace Notes.Commands
+namespace TasksTracker.Commands
 {
     class CommonCommand : ICommand
     {

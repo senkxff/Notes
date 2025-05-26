@@ -1,17 +1,17 @@
 ﻿using System.Windows.Controls;
 using System.Windows;
 
-namespace Notes.View.UserControls
+namespace TasksTracker.View.UserControls
 {
     /// <summary>
-    /// Logic of interapt for InputNoteTitleTextBox.xaml
+    /// Logic of interapt for InputTaskTitleTextBox.xaml
     /// </summary>
-    public partial class InputNoteTitleTextBox : UserControl
+    public partial class InputTaskTitleTextBox : UserControl
     {
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             "Text",
             typeof(string),
-            typeof(InputNoteTitleTextBox),
+            typeof(InputTaskTitleTextBox),
             new PropertyMetadata(string.Empty)
             );
 
@@ -21,7 +21,7 @@ namespace Notes.View.UserControls
             set { SetValue(TextProperty, value); }
         }
 
-        public InputNoteTitleTextBox()
+        public InputTaskTitleTextBox()
         {
             InitializeComponent();
         }

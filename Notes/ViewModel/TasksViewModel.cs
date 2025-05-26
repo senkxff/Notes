@@ -11,13 +11,13 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using Notes.Commands;
-using Notes.Model;
-using Notes.View.Windows.WarningWindows;
+using TasksTracker.Commands;
+using TasksTracker.Model;
+using TasksTracker.View.Windows.WarningWindows;
 
-namespace Notes.ViewModel
+namespace TasksTracker.ViewModel
 {
-    class NotesViewModel : INotifyPropertyChanged
+    class TasksViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -36,78 +36,78 @@ namespace Notes.ViewModel
             }
         }
 
-        private string _content = "";
+        private string content = "";
         public string Content
         {
-            get => _content;
+            get => content;
             set
             {
-                _content = value;
+                content = value;
                 OnPropertyChanged();
 
             }
         }
 
-        private TaskModel selectedNote = new TaskModel();
-        public TaskModel SelectedNote
+        private TaskModel selectedTask = new TaskModel();
+        public TaskModel SelectedTask
         {
-            get { return selectedNote; }
+            get { return selectedTask; }
             set
             {
-                selectedNote = value;
+                selectedTask = value;
                 OnPropertyChanged();
             }
         }
 
-        private ObservableCollection<TaskModel> notes = new ObservableCollection<TaskModel>()
+        private ObservableCollection<TaskModel> tasks = new ObservableCollection<TaskModel>()
         {
-            new TaskModel { Title = "Дата задачи", Content = "" }
+            new TaskModel { Title = "Новая задача", Content = "" }
         };
-        public ObservableCollection<TaskModel> Notes
+        public ObservableCollection<TaskModel> Tasks
         {
-            get { return notes; }
+            get { return tasks; }
             set
             {
-                notes = value;
+                tasks = value;
                 OnPropertyChanged();
             }
         }
 
-        public NotesViewModel()
+        public TasksViewModel()
         {
             AddImageCommand = new CommonCommand(AddImage);
-            AddNoteCommand = new CommonCommand(AddNote);
-            DeleteNoteCommand = new CommonCommand(DeleteNote);
-            SaveNoteCommand = new CommonCommand(async () => await Task.Run(() => SaveNoteAsync()));
+            AddTaskCommand = new CommonCommand(AddNote);
+            DeleteTaskCommand = new CommonCommand(DeleteNote);
+            SaveTaskCommand = new CommonCommand(async () => await Task.Run(() => SaveNoteAsync()));
 
-            Parallel.Invoke(() => LoadNotesAsync(), () => LoadImagesAsync());
+            Parallel.Invoke(() => LoadTasksAsync(), () => LoadImagesAsync());
 
-            SelectedNote = notes[0];
+            SelectedTask = tasks[0];
         }
 
-        public ICommand AddNoteCommand { get; }
+        public ICommand AddTaskCommand { get; }
         private void AddNote()
         {
             var newNote = new TaskModel { Title = "Новая задача", Content = "" };
 
-            Notes.Add(newNote);
-            SelectedNote = newNote;
+            Tasks.Add(newNote);
+            SelectedTask = newNote;
             InputTitle = string.Empty;
         }
 
-        public ICommand DeleteNoteCommand { get; }
+        public ICommand DeleteTaskCommand { get; }
         private void DeleteNote()
         {
-            if (SelectedNote != null && Notes.Contains(SelectedNote))
+            if (SelectedTask != null && Tasks.Contains(SelectedTask))
             {
-                if (Notes.Count > 1)
+                if (Tasks.Count > 1)
                 {
-                    Notes.Remove(SelectedNote);
-                    SelectedNote = Notes[Notes.Count - 1];
+                    Tasks.Remove(SelectedTask);
+                    SelectedTask = Tasks[Tasks.Count - 1];
                 }
                 else
                 {
-                    DeleteAllNotesWarningWindow deleteAllNotesWarningWindow = new DeleteAllNotesWarningWindow();
+                    DeleteAllTasksWarningWindow deleteAllNotesWarningWindow = new DeleteAllTasksWarningWindow();
                     Window ownerWindow = Window.GetWindow(Application.Current.MainWindow);
                     deleteAllNotesWarningWindow.Owner = ownerWindow;
                     deleteAllNotesWarningWindow.ShowDialog();
@@ -115,7 +115,7 @@ namespace Notes.ViewModel
             }
             else
             {
-                DeleteAllNotesWarningWindow deleteAllNotesWarningWindow = new DeleteAllNotesWarningWindow();
+                DeleteAllTasksWarningWindow deleteAllNotesWarningWindow = new DeleteAllTasksWarningWindow();
                 Window ownerWindow = Window.GetWindow(Application.Current.MainWindow);
                 deleteAllNotesWarningWindow.Owner = ownerWindow;
                 deleteAllNotesWarningWindow.ShowDialog();
@@ -147,9 +147,9 @@ namespace Notes.ViewModel
                 {
                     byte[] imageBytes = File.ReadAllBytes(openFileDialog.FileName);
                     string bmpBase64 = Convert.ToBase64String(imageBytes);
-                    if (SelectedNote != null)
+                    if (SelectedTask != null)
                     {
-                        SelectedNote.ImagesBase64.Add(bmpBase64);
+                        SelectedTask.ImagesBase64.Add(bmpBase64);
                         BitmapImage bitmap = new BitmapImage();
                         using (MemoryStream ms = new MemoryStream(imageBytes))
                         {
@@ -159,7 +159,7 @@ namespace Notes.ViewModel
                             bitmap.EndInit();
                             bitmap.Freeze();
                         }
-                        SelectedNote.Images.Add(bitmap);
+                        SelectedTask.Images.Add(bitmap);
                     }
                 }
                 catch (Exception ex)
@@ -170,7 +170,7 @@ namespace Notes.ViewModel
         }
 
 
-        public ICommand SaveNoteCommand { get; }
+        public ICommand SaveTaskCommand { get; }
         private bool isSyncing = false;
         private async void SaveNoteAsync()
         {
@@ -187,7 +187,7 @@ namespace Notes.ViewModel
             {
                 string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NotesCollection.json");
 
-                string jsonNotes = JsonConvert.SerializeObject(notes, Formatting.Indented);
+                string jsonNotes = JsonConvert.SerializeObject(tasks, Formatting.Indented);
                 await File.WriteAllTextAsync(localFilePath, jsonNotes);
 
                 UserCredential credential;
@@ -250,10 +250,10 @@ namespace Notes.ViewModel
                         {
                             Application.Current.Dispatcher.Invoke(() =>
                             {
-                                notes.Clear();
+                                tasks.Clear();
                                 foreach (var note in updatedNotes)
                                 {
-                                    notes.Add(note);
+                                    tasks.Add(note);
                                 }
                             });
                         }
@@ -271,7 +271,7 @@ namespace Notes.ViewModel
             }
         }
 
-        private async Task LoadNotesAsync()
+        private async Task LoadTasksAsync()
         {
             string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NotesCollection.json");
 
@@ -284,10 +284,10 @@ namespace Notes.ViewModel
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        notes.Clear();
+                        tasks.Clear();
                         foreach (var note in loadedNotes)
                         {
-                            notes.Add(note);
+                            tasks.Add(note);
                         }
                     });
                 }
@@ -306,7 +306,7 @@ namespace Notes.ViewModel
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        notes.Clear();
+                        tasks.Clear();
                         foreach (var note in loadedNotes)
                         {
                             note.Images.Clear();
@@ -324,7 +324,7 @@ namespace Notes.ViewModel
                                 }
                                 note.Images.Add(image);
                             }
-                            notes.Add(note);
+                            tasks.Add(note);
                         }
                     });
                 }
