@@ -44,6 +44,7 @@
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши задачи:" VerticalAlignment="Top" FontSize="23" Foreground="White" 
                    Margin="10 10 0 0" FontFamily="Br"/>
         <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <uc:ChangeAccountButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Сменить аккаунт"/>
             <uc:CalenderButton x:Name="CalenderButton" Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Bottom" ToolTip="Выбрать дату из календаря"
                                MouseLeftButtonDown="CalenderButton_MouseLeftButtonDown"/>
             <uc:InputTaskTitleTextBox Grid.Column="2" HorizontalAlignment="Left"
