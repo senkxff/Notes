@@ -36,7 +36,7 @@
                       ToolTip="Добавить новую задачу" Command="{Binding AddTaskCommand}"/>
 
         <uc:ExitButton x:Name="ExitBtn" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"
-                       MouseLeftButtonDown="ExitBtn_MouseLeftButtonDown"/>
+                       MouseLeftButtonDown="ExitBtn_MouseLeftButtonDown" ToolTip="Закрыть приложение"/>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Планировщик задач" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Left" 
                    FontSize="18" FontWeight="UltraBold" FontFamily="Mistral" Margin="10 0 0 0"/>

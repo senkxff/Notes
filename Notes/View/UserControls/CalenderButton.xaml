@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="CalenderBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/CalenderButton.png" Cursor="Hand"
+        <Image x:Name="CalenderBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/CalendarButton.png" Cursor="Hand"
                />
     </Grid>
 </UserControl>
