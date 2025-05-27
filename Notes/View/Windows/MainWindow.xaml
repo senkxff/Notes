@@ -32,18 +32,23 @@
                       Background="Red" ShowsPreview="True"/>
 
         <!-- Main Buttons -->
-        <uc:AddTaskInCollectionButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            
+        <uc:AddTaskInCollectionButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
                       ToolTip="Добавить новую задачу" Command="{Binding AddTaskCommand}"/>
+        </StackPanel>
 
         <uc:ExitButton x:Name="ExitBtn" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"
                        MouseLeftButtonDown="ExitBtn_MouseLeftButtonDown" ToolTip="Закрыть приложение"/>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Планировщик задач" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Left" 
-                   FontSize="18" FontWeight="UltraBold" FontFamily="Mistral" Margin="10 0 0 0"/>
+                   FontSize="20" FontWeight="UltraBold" FontFamily="Mistral" Margin="10 0 0 0"/>
 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши задачи:" VerticalAlignment="Top" FontSize="23" Foreground="White" 
                    Margin="10 10 0 0" FontFamily="Br"/>
         <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <uc:CreateImportantButton HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Пометить важной" 
+                                      Command="{Binding MarkAsImportantCommand}"/>
             <uc:ChangeAccountButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Сменить аккаунт"/>
             <uc:CalenderButton x:Name="CalenderButton" Grid.Column="2" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Bottom" ToolTip="Выбрать дату из календаря"
                                MouseLeftButtonDown="CalenderButton_MouseLeftButtonDown"/>
@@ -89,7 +94,6 @@
                        TextWrapping="Wrap" Margin="0 0 0 0" CaretBrush="White" BorderThickness="0"/>
                     <TextBlock x:Name="Content" FontSize="18" Background="Transparent" Foreground="White" 
                                Text="{Binding SelectedTask.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
-
                 </StackPanel>
             </ScrollViewer>
 
@@ -109,7 +113,7 @@
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
                     <uc:AddTaskInJsonButton Margin="0,0,0,5" ToolTip="Добавить в облако" Command="{Binding SaveTaskCommand}"/>
                     <uc:PinImageButton Margin="0,0,0,5" ToolTip="Прикрепить изображение" Command="{Binding AddImageCommand}"/>
-                    <uc:DeleteTaskButton ToolTip="Удалить заметку" Command="{Binding DeleteTaskCommand}"/>
+                    <uc:DeleteTaskButton ToolTip="Удалить задачу" Command="{Binding DeleteTaskCommand}"/>
                 </StackPanel>
             </Grid>
         </Grid>

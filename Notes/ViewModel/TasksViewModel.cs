@@ -79,10 +79,25 @@ namespace TasksTracker.ViewModel
             AddTaskCommand = new CommonCommand(AddTask);
             DeleteTaskCommand = new CommonCommand(DeleteTask);
             SaveTaskCommand = new CommonCommand(async () => await Task.Run(() => SaveTasksAsync()));
+            MarkAsImportantCommand = new CommonCommand(MarkAsImportant);
 
             Parallel.Invoke(() => LoadTasksAsync(), () => LoadImagesAsync());
 
             SelectedTask = tasks[0];
+        }
+
+        public ICommand MarkAsImportantCommand { get; }
+        private void MarkAsImportant()
+        {
+            if (SelectedTask != null)
+            {
+                // Удаляем звезду, если она есть, или добавляем, если нет
+                SelectedTask.Title = SelectedTask.Title.StartsWith("★")
+                    ? SelectedTask.Title.Substring(1).TrimStart()
+                    : "★ " + SelectedTask.Title;
+                // Удаляем явное изменение IsImportant, так как оно уже обновляется в сеттере Title
+                OnPropertyChanged(nameof(SelectedTask));
+            }
         }
 
         public ICommand AddTaskCommand { get; }
@@ -92,6 +107,7 @@ namespace TasksTracker.ViewModel
             {
                 Title = "Новая задача",
                 Content = "",
+                IsImportant = false
             };
 
             Tasks.Add(newNote);
@@ -208,7 +224,7 @@ namespace TasksTracker.ViewModel
                     credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                         GoogleClientSecrets.FromStream(stream).Secrets,
                         new[] { DriveService.Scope.Drive },
-                        "user3",
+                        "user4",
                         CancellationToken.None,
                         new FileDataStore(credPath, true));
                 }
@@ -305,6 +321,8 @@ namespace TasksTracker.ViewModel
                                 {
                                     task.DateTask = DateTime.Now.ToString("dd.MM.yyyy");
                                 }
+                                // Восстанавливаем состояние IsImportant
+                                task.IsImportant = task.Title.StartsWith("★");
                                 Tasks.Add(task);
                             }
                         });

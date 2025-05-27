@@ -19,6 +19,7 @@
   <ItemGroup>
     <None Remove="View\Resources\CalendarButton.png" />
     <None Remove="View\Resources\ChangeAccountButton.png" />
+    <None Remove="View\Resources\CreateImportantTaskButton.png" />
     <None Remove="View\Resources\ExitButton.png" />
     <None Remove="View\Resources\TasksTraker.ico" />
   </ItemGroup>
@@ -39,6 +40,7 @@
     <Resource Include="View\Resources\AddTaskInJsonButton.png" />
     <Resource Include="View\Resources\CalendarButton.png" />
     <Resource Include="View\Resources\ChangeAccountButton.png" />
+    <Resource Include="View\Resources\CreateImportantTaskButton.png" />
     <Resource Include="View\Resources\DeleteTaskButton.png" />
     <Resource Include="View\Resources\ExitButton.png" />
     <Resource Include="View\Resources\PinImageButton.png" />
