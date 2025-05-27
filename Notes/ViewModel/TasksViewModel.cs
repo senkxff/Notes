@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using TasksTracker.Commands;
 using TasksTracker.Model;
 using TasksTracker.View.Windows.WarningWindows;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TasksTracker.ViewModel
 {
@@ -25,7 +26,7 @@ namespace TasksTracker.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string inputTitle = "Новая задача";
+        private string inputTitle = "";
         public string InputTitle
         {
             get { return inputTitle; }
@@ -44,7 +45,6 @@ namespace TasksTracker.ViewModel
             {
                 content = value;
                 OnPropertyChanged();
-
             }
         }
 
@@ -61,7 +61,7 @@ namespace TasksTracker.ViewModel
 
         private ObservableCollection<TaskModel> tasks = new ObservableCollection<TaskModel>()
         {
-            new TaskModel { Title = "Новая задача", Content = "" }
+            new TaskModel { Title = "", Content = "", DateTask = "Сегодня" }
         };
         public ObservableCollection<TaskModel> Tasks
         {
@@ -76,9 +76,9 @@ namespace TasksTracker.ViewModel
         public TasksViewModel()
         {
             AddImageCommand = new CommonCommand(AddImage);
-            AddTaskCommand = new CommonCommand(AddNote);
-            DeleteTaskCommand = new CommonCommand(DeleteNote);
-            SaveTaskCommand = new CommonCommand(async () => await Task.Run(() => SaveNoteAsync()));
+            AddTaskCommand = new CommonCommand(AddTask);
+            DeleteTaskCommand = new CommonCommand(DeleteTask);
+            SaveTaskCommand = new CommonCommand(async () => await Task.Run(() => SaveTasksAsync()));
 
             Parallel.Invoke(() => LoadTasksAsync(), () => LoadImagesAsync());
 
@@ -86,17 +86,22 @@ namespace TasksTracker.ViewModel
         }
 
         public ICommand AddTaskCommand { get; }
-        private void AddNote()
+        private void AddTask()
         {
-            var newNote = new TaskModel { Title = "Новая задача", Content = "" };
+            var newNote = new TaskModel
+            {
+                Title = "Новая задача",
+                Content = "",
+            };
 
             Tasks.Add(newNote);
             SelectedTask = newNote;
             InputTitle = string.Empty;
+            newNote.DateTask = DateTime.Now.ToString("dd.MM.yyyy");
         }
 
         public ICommand DeleteTaskCommand { get; }
-        private void DeleteNote()
+        private void DeleteTask()
         {
             if (SelectedTask != null && Tasks.Contains(SelectedTask))
             {
@@ -172,7 +177,7 @@ namespace TasksTracker.ViewModel
 
         public ICommand SaveTaskCommand { get; }
         private bool isSyncing = false;
-        private async void SaveNoteAsync()
+        private async void SaveTasksAsync()
         {
             if (isSyncing)
             {
@@ -185,9 +190,15 @@ namespace TasksTracker.ViewModel
 
             try
             {
-                string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NotesCollection.json");
+                string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TasksCollection.json");
 
-                string jsonNotes = JsonConvert.SerializeObject(tasks, Formatting.Indented);
+                var settings = new JsonSerializerSettings
+                {
+                    Formatting = Formatting.Indented,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                string jsonNotes = JsonConvert.SerializeObject(tasks, settings);
                 await File.WriteAllTextAsync(localFilePath, jsonNotes);
 
                 UserCredential credential;
@@ -205,11 +216,11 @@ namespace TasksTracker.ViewModel
                 var service = new DriveService(new BaseClientService.Initializer
                 {
                     HttpClientInitializer = credential,
-                    ApplicationName = "Notes"
+                    ApplicationName = "TasksTracker"
                 });
 
                 var listRequest = service.Files.List();
-                listRequest.Q = "name = 'NotesCollection.json' and trashed = false";
+                listRequest.Q = "name = 'TasksCollection.json' and trashed = false";
                 listRequest.Spaces = "drive";
                 var fileList = await listRequest.ExecuteAsync();
 
@@ -217,7 +228,7 @@ namespace TasksTracker.ViewModel
 
                 var fileMetadata = new Google.Apis.Drive.v3.Data.File()
                 {
-                    Name = "NotesCollection.json"
+                    Name = "TasksCollection.json"
                 };
 
                 using (var fileStream = new FileStream(localFilePath, FileMode.Open))
@@ -273,30 +284,42 @@ namespace TasksTracker.ViewModel
 
         private async Task LoadTasksAsync()
         {
-            string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NotesCollection.json");
+            const string fileName = "TasksCollection.json";
+            string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
             if (File.Exists(localFilePath))
             {
-                string json = await File.ReadAllTextAsync(localFilePath);
-                var loadedNotes = JsonConvert.DeserializeObject<ObservableCollection<TaskModel>>(json);
-
-                if (loadedNotes != null)
+                try
                 {
-                    Application.Current.Dispatcher.Invoke(() =>
+                    string json = await File.ReadAllTextAsync(localFilePath);
+                    var loadedTasks = JsonConvert.DeserializeObject<ObservableCollection<TaskModel>>(json);
+
+                    if (loadedTasks != null)
                     {
-                        tasks.Clear();
-                        foreach (var note in loadedNotes)
+                        await Application.Current.Dispatcher.InvokeAsync(() =>
                         {
-                            tasks.Add(note);
-                        }
-                    });
+                            Tasks.Clear();
+                            foreach (var task in loadedTasks)
+                            {
+                                if (string.IsNullOrEmpty(task.DateTask))
+                                {
+                                    task.DateTask = DateTime.Now.ToString("dd.MM.yyyy");
+                                }
+                                Tasks.Add(task);
+                            }
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка загрузки задач: {ex.Message}");
                 }
             }
         }
 
         private async Task LoadImagesAsync()
         {
-            string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "NotesCollection.json");
+            string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TasksCollection.json");
 
             if (File.Exists(localFilePath))
             {

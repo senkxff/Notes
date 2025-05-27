@@ -6,11 +6,13 @@ namespace TasksTracker.Model
 {
     class TaskModel
     {
-        private DateOnly date;
-        public DateOnly Date
+        private string date = DateTime.Now.ToString("dd.MM.yyyy");
+        public string DateTask
         {
             get { return date; }
-            set { date = value; }
+            set {
+                date = value;
+            }
         }
 
         private string title = "Новая задача";

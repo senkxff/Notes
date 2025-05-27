@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 using TasksTracker.View.Windows.WarningWindows;
 using TasksTracker.ViewModel;
 
@@ -23,6 +25,32 @@ namespace TasksTracker.View.Windows
             exitWarningWindow.Owner = ownerWindow;
 
             exitWarningWindow.ShowDialog();
+        }
+
+        private void InputTaskTitleTextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CalenderButton_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                calendar.Visibility = calendar.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+
+                if (DataContext is TasksViewModel vm && vm.SelectedTask != null)
+                {
+                    if (DateTime.TryParseExact(vm.SelectedTask.DateTask, "dd.MM.yyyy",
+                        null, System.Globalization.DateTimeStyles.None, out var date))
+                    {
+                        calendar.SelectedDate = date;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось открыть календарь: {ex.Message}");
+            }
         }
     }
 }
