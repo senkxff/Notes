@@ -61,7 +61,7 @@ namespace TasksTracker.ViewModel
 
         private ObservableCollection<TaskModel> tasks = new ObservableCollection<TaskModel>()
         {
-            new TaskModel { Title = "", Content = "", DateTask = "Сегодня" }
+            new TaskModel { Title = "Новая задача", Content = "", DateTask = "Сегодня" }
         };
         public ObservableCollection<TaskModel> Tasks
         {
@@ -80,6 +80,7 @@ namespace TasksTracker.ViewModel
             DeleteTaskCommand = new CommonCommand(DeleteTask);
             SaveTaskCommand = new CommonCommand(async () => await Task.Run(() => SaveTasksAsync()));
             MarkAsImportantCommand = new CommonCommand(MarkAsImportant);
+            ChangeAccountCommand = new CommonCommand(async () => await ChangeAccountForButton());
 
             Parallel.Invoke(() => LoadTasksAsync(), () => LoadImagesAsync());
 
@@ -91,12 +92,27 @@ namespace TasksTracker.ViewModel
         {
             if (SelectedTask != null)
             {
-                // Удаляем звезду, если она есть, или добавляем, если нет
+                System.Diagnostics.Debug.WriteLine($"MarkAsImportant called. Before: Title={SelectedTask.Title}, IsImportant={SelectedTask.IsImportant}");
+
+                bool willBeImportant = !SelectedTask.Title.StartsWith("★");
+
                 SelectedTask.Title = SelectedTask.Title.StartsWith("★")
                     ? SelectedTask.Title.Substring(1).TrimStart()
                     : "★ " + SelectedTask.Title;
-                // Удаляем явное изменение IsImportant, так как оно уже обновляется в сеттере Title
+
+                int currentIndex = Tasks.IndexOf(SelectedTask);
+                if (willBeImportant && currentIndex > 0)
+                {
+                    Tasks.Move(currentIndex, 0);
+                }
+
+                System.Diagnostics.Debug.WriteLine($"After: Title={SelectedTask.Title}, IsImportant={SelectedTask.IsImportant}");
                 OnPropertyChanged(nameof(SelectedTask));
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("SelectedTask is null");
+                MessageBox.Show("Выберите задачу перед пометкой важности.");
             }
         }
 
@@ -113,7 +129,7 @@ namespace TasksTracker.ViewModel
             Tasks.Add(newNote);
             SelectedTask = newNote;
             InputTitle = string.Empty;
-            newNote.DateTask = DateTime.Now.ToString("dd.MM.yyyy");
+
         }
 
         public ICommand DeleteTaskCommand { get; }
@@ -190,7 +206,6 @@ namespace TasksTracker.ViewModel
             }
         }
 
-
         public ICommand SaveTaskCommand { get; }
         private bool isSyncing = false;
         private async void SaveTasksAsync()
@@ -224,7 +239,7 @@ namespace TasksTracker.ViewModel
                     credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                         GoogleClientSecrets.FromStream(stream).Secrets,
                         new[] { DriveService.Scope.Drive },
-                        "user4",
+                        "user0",
                         CancellationToken.None,
                         new FileDataStore(credPath, true));
                 }
@@ -286,16 +301,30 @@ namespace TasksTracker.ViewModel
                         }
                     }
                 }
+
                 await Task.Run(() => LoadImagesAsync());
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    UpdateDataWarningWindow updateDataWarningWindow = new UpdateDataWarningWindow();
+                    Window ownerWindow = Window.GetWindow(Application.Current.MainWindow);
+                    updateDataWarningWindow.Owner = ownerWindow;
+                    updateDataWarningWindow.ShowDialog();
+                });
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Произошло исключение {e.Message}! Пожалуйста, перезапустите программу и сообщите о проблеме разработчику!");
+                await Application.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    UpdateDataErrorWindow updateDataErrorWindow = new UpdateDataErrorWindow();
+                    updateDataErrorWindow.Owner = Application.Current.MainWindow;
+                    updateDataErrorWindow.ShowDialog();
+                });
             }
             finally
             {
                 isSyncing = false;
             }
+            
         }
 
         private async Task LoadTasksAsync()
@@ -319,9 +348,8 @@ namespace TasksTracker.ViewModel
                             {
                                 if (string.IsNullOrEmpty(task.DateTask))
                                 {
-                                    task.DateTask = DateTime.Now.ToString("dd.MM.yyyy");
+                                    task.DateTask = "";
                                 }
-                                // Восстанавливаем состояние IsImportant
                                 task.IsImportant = task.Title.StartsWith("★");
                                 Tasks.Add(task);
                             }
@@ -369,6 +397,89 @@ namespace TasksTracker.ViewModel
                         }
                     });
                 }
+            }
+        }
+
+        public ICommand ChangeAccountCommand { get; }
+        private async Task ChangeAccountForButton(CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                string tokenFile = Path.Combine("token.json", $"Google.Apis.Auth.OAuth2.Responses.TokenResponse-{Environment.UserName}");
+
+                if (File.Exists(tokenFile))
+                {
+                    File.Delete(tokenFile);
+                }
+
+                if (!File.Exists("client_secret.json"))
+                {
+                    MessageBox.Show("Файл client_secret.json не найден. Убедитесь, что он находится в корневой директории приложения.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                using (var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+                {
+                    var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.FromStream(stream).Secrets,
+                        new[] { DriveService.Scope.Drive },
+                        Environment.UserName,
+                        cancellationToken,
+                        new FileDataStore("token.json", true));
+
+                    if (credential != null)
+                    {
+                        var service = new DriveService(new BaseClientService.Initializer
+                        {
+                            HttpClientInitializer = credential,
+                            ApplicationName = "TasksTracker"
+                        });
+
+                        // Проверяем наличие файла TasksCollection.json в Google Drive
+                        var listRequest = service.Files.List();
+                        listRequest.Q = "name = 'TasksCollection.json' and trashed = false";
+                        listRequest.Spaces = "drive";
+                        var fileList = await listRequest.ExecuteAsync(cancellationToken);
+
+                        if (fileList.Files != null && fileList.Files.Count > 0)
+                        {
+                            // Файл существует - загружаем его
+                            var fileId = fileList.Files.First().Id;
+                            var downloadRequest = service.Files.Get(fileId);
+                            var memoryStream = new MemoryStream();
+                            await downloadRequest.DownloadAsync(memoryStream);
+                            memoryStream.Position = 0;
+
+                            // Сохраняем загруженный файл локально
+                            string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TasksCollection.json");
+                            using (var fileStream = File.Create(localFilePath))
+                            {
+                                memoryStream.Seek(0, SeekOrigin.Begin);
+                                await memoryStream.CopyToAsync(fileStream);
+                            }
+
+                            // Обновляем данные в приложении
+                            await LoadTasksAsync();
+                            await LoadImagesAsync();
+                        }
+
+                        await Application.Current.Dispatcher.InvokeAsync(() =>
+                        {
+                            ChangeAccountWarningWindow changeAccountWarningWindow = new ChangeAccountWarningWindow();
+                            Window ownerWindow = Window.GetWindow(Application.Current.MainWindow);
+                            changeAccountWarningWindow.Owner = ownerWindow;
+                            changeAccountWarningWindow.ShowDialog();
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не удалось получить учетные данные. Попробуйте снова.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при смене аккаунта: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

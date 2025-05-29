@@ -23,11 +23,9 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <!-- Отключаем изменения при наведении -->
                                     <Setter Property="Background" Value="Transparent"/>
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <!-- Можно настроить эффект при нажатии, если нужно -->
                                     <Setter Property="Background" Value="Transparent"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>

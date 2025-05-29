@@ -8,7 +8,7 @@ namespace TasksTracker.Model
 {
     public class TaskModel : INotifyPropertyChanged
     {
-        private string date = DateTime.Now.ToString("dd.MM.yyyy");
+        private string date;
         public string DateTask
         {
             get => date;

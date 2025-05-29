@@ -16,8 +16,7 @@
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" 
                     Margin="0 50 0 0">
-            <uc:RedButton x:Name="AgreeButton" Margin="0 0 10 0" 
-                          Placeholder="Понятно" 
+        <uc:RedButton x:Name="AgreeButton" Margin="0 0 10 0" Placeholder="Понятно" 
                           PreviewMouseLeftButtonDown="AgreeButton_MouseLeftButtonDown"/>
         </StackPanel>
     </Grid>

@@ -6,7 +6,35 @@
              xmlns:local="clr-namespace:TasksTracker.View.UserControls"
              mc:Ignorable="d" 
              Height="25" Width="25">
-    <Grid>
-        <Image x:Name="ChangeAccountBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/ChangeAccountButton.png" Cursor="Hand"/>
-    </Grid>
+    <Button x:Name="CreateImportantBtn" 
+        Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Command}"
+        Cursor="Hand"
+        Background="Transparent"
+        BorderThickness="0">
+        <Button.Style>
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Button.Style>
+        <Image x:Name="ChangeAccountBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/ChangeAccountButton.png" Cursor="Hand" Stretch="Uniform"/>
+    </Button>
 </UserControl>
