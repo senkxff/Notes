@@ -6,15 +6,15 @@
              xmlns:local="clr-namespace:TasksTracker.View.UserControls"
              mc:Ignorable="d"
              x:Name="root"
-             Width="Auto" Height="25" MinWidth="150" MaxWidth="290">
-    <Border CornerRadius="10" Background="Transparent" BorderBrush="#8a2be2" BorderThickness="1">
+             Width="Auto" Height="25" MinWidth="100" MaxWidth="150">
+    <Border CornerRadius="5" Background="Transparent" BorderBrush="Gray" BorderThickness="1">
         <Grid>
             <TextBlock x:Name="Placeholder" Text="Дата задачи" FontSize="14" Foreground="Gray" Panel.ZIndex="0" 
                       Margin="7 0 0 1" VerticalAlignment="Center"/>
             <TextBox x:Name="InputedTitle" BorderThickness="0" VerticalAlignment="Center" Panel.ZIndex="3"
-                     Background="Transparent" Margin="5,0,0,0" Foreground="White" CaretBrush="White" MaxLength="29"
+                     Background="Transparent" Margin="5,0,0,0" CaretBrush="White" MaxLength="29"
                      TextChanged="InputedTitle_TextChanged" FontSize="16"
-                     Text="{Binding Text, ElementName=root, UpdateSourceTrigger=PropertyChanged}"/>
+                     Text="{Binding Text, ElementName=root, UpdateSourceTrigger=PropertyChanged}" Foreground="White"/>
         </Grid>
     </Border>
 </UserControl>

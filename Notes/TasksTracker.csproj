@@ -22,6 +22,9 @@
     <None Remove="View\Resources\CheckedTaskButton.png" />
     <None Remove="View\Resources\CreateImportantTaskButton.png" />
     <None Remove="View\Resources\ExitButton.png" />
+    <None Remove="View\Resources\FilterButton.png" />
+    <None Remove="View\Resources\FindTaskButton.png" />
+    <None Remove="View\Resources\RememberButton.png" />
     <None Remove="View\Resources\TasksTraker.ico" />
   </ItemGroup>
 
@@ -45,7 +48,10 @@
     <Resource Include="View\Resources\CreateImportantTaskButton.png" />
     <Resource Include="View\Resources\DeleteTaskButton.png" />
     <Resource Include="View\Resources\ExitButton.png" />
+    <Resource Include="View\Resources\FilterButton.png" />
+    <Resource Include="View\Resources\FindTaskButton.png" />
     <Resource Include="View\Resources\PinImageButton.png" />
+    <Resource Include="View\Resources\RememberButton.png" />
     <Resource Include="View\Resources\TasksTraker.ico" />
   </ItemGroup>
 
