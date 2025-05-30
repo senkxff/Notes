@@ -14,7 +14,7 @@ namespace TasksTracker.Model
         private bool isImportant;
         private string title = "Новая задача";
         private string content = "";
-        private string priority = "Low";
+        private string priority = "Низкий";
         private ObservableCollection<string> imagesBase64 = new();
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -114,10 +114,10 @@ namespace TasksTracker.Model
         {
             get => priority switch
             {
-                "Low" => "#FF4CAF50",      // Зелёный
-                "Medium" => "#FFFFC107",   // Жёлтый
-                "High" => "#FFFF9800",     // Оранжевый
-                "Critical" => "#FFF44336", // Красный
+                "Низкий" => "#32CD32",      // Зелёный
+                "Средний" => "Gold",   // Жёлтый
+                "Высокий" => "#FF6D2D",     // Оранжевый
+                "Критический" => "Red", // Красный
                 _ => "#FFFFFFFF"           // Белый по умолчанию
             };
         }

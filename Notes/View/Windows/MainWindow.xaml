@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:TasksTracker.ViewModel"
         xmlns:converters="clr-namespace:TasksTracker.Converters"
         mc:Ignorable="d"
-        Height="450" Width="800" MinWidth="800"
+        Height="520" Width="900" MinWidth="850"
         WindowStyle="None" Background="#1D1D1D" WindowStartupLocation="CenterScreen">
     <WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="20"/>
@@ -25,25 +25,27 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".25*" MaxWidth="305" MinWidth="200"/>
+            <ColumnDefinition Width=".25*" MaxWidth="350" MinWidth="235"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width=".75*"/>
         </Grid.ColumnDefinitions>
 
         <Rectangle Grid.RowSpan="3" Fill="#191919"/>
         <GridSplitter Width="5" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      Background="Red" ShowsPreview="True"/>
+                      Background="#8a2be2" ShowsPreview="True"/>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <uc:AddTaskInCollectionButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
-                                          ToolTip="Добавить новую задачу" Command="{Binding AddTaskCommand}"/>
+        <StackPanel Orientation="Horizontal">
+            <uc:ChangeAccountButton Margin="10 0 0 0" VerticalAlignment="Bottom" ToolTip="Сменить аккаунт" Command="{Binding ChangeAccountCommand}"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Планировщик задач" VerticalAlignment="Bottom" Foreground="#8a2be2" 
+           FontSize="23" FontFamily="Mistral" Margin="10 0 5 0" HorizontalAlignment="Right"/>
+            
         </StackPanel>
-
+        <uc:AddTaskInCollectionButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5 0 5 0"
+                              ToolTip="Добавить новую задачу" Command="{Binding AddTaskCommand}"/>
         <uc:ExitButton x:Name="ExitBtn" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"
                        MouseLeftButtonDown="ExitBtn_MouseLeftButtonDown" ToolTip="Закрыть приложение"/>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Планировщик задач" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Left" 
-                   FontSize="23" FontFamily="Mistral" Margin="10 0 0 0"/>
+        
 
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши задачи:" VerticalAlignment="Top" FontSize="23" Foreground="White" 
                    Margin="10 10 0 0" FontFamily="Br"/>
@@ -51,7 +53,7 @@
             <uc:CreateImportantButton HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Пометить важной" 
                                       Command="{Binding MarkAsImportantCommand}"/>
             <uc:CheckedTaskButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Пометить выполненной" Command="{Binding MarkAsCheckedCommand}"/>
-            <uc:ChangeAccountButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Сменить аккаунт" Command="{Binding ChangeAccountCommand}"/>
+            
             <uc:CalenderButton x:Name="CalenderButton" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Bottom" ToolTip="Выбрать дату из календаря"
                                MouseLeftButtonDown="CalenderButton_MouseLeftButtonDown"/>
             <uc:InputTaskTitleTextBox HorizontalAlignment="Left" FontSize="20" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"

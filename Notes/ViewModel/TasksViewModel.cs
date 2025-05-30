@@ -138,10 +138,10 @@ namespace TasksTracker.ViewModel
         {
             return priority switch
             {
-                "Critical" => 4,
-                "High" => 3,
-                "Medium" => 2,
-                "Low" => 1,
+                "Критический" => 4,
+                "Высокий" => 3,
+                "Средний" => 2,
+                "Низкий" => 1,
                 _ => 0
             };
         }
@@ -198,7 +198,7 @@ namespace TasksTracker.ViewModel
                     }
                     else
                     {
-                        var newTask = new TaskModel { Title = "Новая задача", Content = "", DateTask = "Сегодня", Priority = "Low" };
+                        var newTask = new TaskModel { Title = "Новая задача", Content = "", DateTask = "Сегодня", Priority = "Низкий" };
                         newTask.PropertyChanged += Task_PropertyChanged;
                         Tasks.Add(newTask);
                         SelectedTask = newTask;
@@ -239,7 +239,7 @@ namespace TasksTracker.ViewModel
                 Content = "",
                 IsImportant = false,
                 DateTask = "Сегодня",
-                Priority = "Low"
+                Priority = "Низкий"
             };
             newTask.PropertyChanged += Task_PropertyChanged;
             Tasks.Add(newTask);
