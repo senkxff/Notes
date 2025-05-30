@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="TasksTracker.View.UserControls.FindTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TasksTracker.View.UserControls"
+             mc:Ignorable="d"
+         Width="Auto" Height="25" MinWidth="150" MaxWidth="225">
+    <Border CornerRadius="10" Background="Transparent" BorderBrush="Gray" BorderThickness="0.1">
+        <Grid>
+            <TextBlock x:Name="Placeholder" Text="Поиск..." FontSize="14" Foreground="Gray" Panel.ZIndex="0" 
+                  Margin="7 0 0 1" VerticalAlignment="Center"/>
+            <TextBox x:Name="InputedSearchString" BorderThickness="0" VerticalAlignment="Center" Panel.ZIndex="3"
+                 Background="Transparent" Margin="5,0,0,0" Foreground="White" CaretBrush="White" MaxLength="29"
+                 TextChanged="InputedSearchString_TextChanged" FontSize="16"
+                 Text="{Binding Text, ElementName=root, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </Border>
+</UserControl>
