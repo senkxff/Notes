@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="TasksTracker.View.UserControls.CheckedTaskButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TasksTracker.View.UserControls"
+             mc:Ignorable="d" 
+             Height="25" Width="25">
+    <Grid>
+        <Button x:Name="CreateImportantBtn" 
+        Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Command}"
+        Cursor="Hand"
+        Background="Transparent"
+        BorderThickness="0">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+            <Image Source="pack://application:,,,/TasksTracker;component/View/Resources/CheckedTaskButton.png" 
+           Stretch="Uniform"/>
+        </Button>
+    </Grid>
+</UserControl>

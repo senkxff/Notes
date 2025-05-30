@@ -35,6 +35,6 @@
                 </Setter>
             </Style>
         </Button.Style>
-        <Image x:Name="ChangeAccountBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/ChangeAccountButton.png" Cursor="Hand" Stretch="Uniform"/>
+        <Image x:Name="ChangeAccountBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/ChangeAccountButton.png" Cursor="Hand" Stretch="Uniform" MouseLeftButtonDown="ChangeAccountBtn_MouseLeftButtonDown"/>
     </Button>
 </UserControl>

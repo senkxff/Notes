@@ -26,5 +26,10 @@ namespace TasksTracker.View.UserControls
         {
             InitializeComponent();
         }
+
+        private void ChangeAccountBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

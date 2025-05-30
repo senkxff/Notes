@@ -8,32 +8,63 @@ namespace TasksTracker.Model
 {
     public class TaskModel : INotifyPropertyChanged
     {
-        private string date;
-        public string DateTask
+        private bool isCompleted;
+        private bool isChecked;
+        private string dateTask = "Сегодня";
+        private bool isImportant;
+        private string title = "Новая задача";
+        private string content = "";
+        private string priority = "Low";
+        private ObservableCollection<string> imagesBase64 = new();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            get => date;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool IsCompleted
+        {
+            get => isCompleted;
             set
             {
-                date = value;
+                isCompleted = value;
                 OnPropertyChanged();
             }
         }
 
-        private bool isImportant;
+        public bool IsChecked
+        {
+            get => isChecked;
+            set
+            {
+                isChecked = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(DisplayTitle));
+            }
+        }
+
+        public string DateTask
+        {
+            get => dateTask;
+            set
+            {
+                dateTask = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsImportant
         {
             get => isImportant;
             set
             {
-                if (isImportant != value)
-                {
-                    isImportant = value;
-                    OnPropertyChanged();
-                }
+                isImportant = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(DisplayTitle));
             }
         }
 
-        private string title = "Новая задача";
         public string Title
         {
             get => title;
@@ -41,11 +72,12 @@ namespace TasksTracker.Model
             {
                 title = value;
                 OnPropertyChanged();
-                IsImportant = value.StartsWith("★");
+                OnPropertyChanged(nameof(DisplayTitle));
             }
         }
 
-        private string content = string.Empty;
+        public string DisplayTitle => (isChecked ? "✔ " : "") + (isImportant ? "★ " : "") + title;
+
         public string Content
         {
             get => content;
@@ -56,7 +88,6 @@ namespace TasksTracker.Model
             }
         }
 
-        private ObservableCollection<string> imagesBase64 = new();
         public ObservableCollection<string> ImagesBase64
         {
             get => imagesBase64;
@@ -67,13 +98,31 @@ namespace TasksTracker.Model
             }
         }
 
+        public string Priority
+        {
+            get => priority;
+            set
+            {
+                priority = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(PriorityColor));
+                OnPropertyChanged(nameof(DisplayTitle));
+            }
+        }
+
+        public string PriorityColor
+        {
+            get => priority switch
+            {
+                "Low" => "#FF4CAF50",      // Зелёный
+                "Medium" => "#FFFFC107",   // Жёлтый
+                "High" => "#FFFF9800",     // Оранжевый
+                "Critical" => "#FFF44336", // Красный
+                _ => "#FFFFFFFF"           // Белый по умолчанию
+            };
+        }
+
         [JsonIgnore]
         public ObservableCollection<BitmapImage> Images { get; set; } = new ObservableCollection<BitmapImage>();
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
