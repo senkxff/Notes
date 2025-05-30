@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>View\Resources\TasksTraker.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +17,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="View\Resources\CalendarButton.png" />
+    <None Remove="View\Resources\ChangeAccountButton.png" />
+    <None Remove="View\Resources\CheckedTaskButton.png" />
+    <None Remove="View\Resources\CreateImportantTaskButton.png" />
     <None Remove="View\Resources\ExitButton.png" />
+    <None Remove="View\Resources\TasksTraker.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="View\Resources\TasksTraker.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,9 +39,14 @@
   <ItemGroup>
     <Resource Include="View\Resources\AddTaskInCollectionButton.png" />
     <Resource Include="View\Resources\AddTaskInJsonButton.png" />
+    <Resource Include="View\Resources\CalendarButton.png" />
+    <Resource Include="View\Resources\ChangeAccountButton.png" />
+    <Resource Include="View\Resources\CheckedTaskButton.png" />
+    <Resource Include="View\Resources\CreateImportantTaskButton.png" />
     <Resource Include="View\Resources\DeleteTaskButton.png" />
     <Resource Include="View\Resources\ExitButton.png" />
     <Resource Include="View\Resources\PinImageButton.png" />
+    <Resource Include="View\Resources\TasksTraker.ico" />
   </ItemGroup>
 
 </Project>

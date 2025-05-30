@@ -1,40 +1,128 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 
 namespace TasksTracker.Model
 {
-    class TaskModel
+    public class TaskModel : INotifyPropertyChanged
     {
-        private DateOnly date;
-        public DateOnly Date
+        private bool isCompleted;
+        private bool isChecked;
+        private string dateTask = "Сегодня";
+        private bool isImportant;
+        private string title = "Новая задача";
+        private string content = "";
+        private string priority = "Низкий";
+        private ObservableCollection<string> imagesBase64 = new();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            get { return date; }
-            set { date = value; }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string title = "Новая задача";
+        public bool IsCompleted
+        {
+            get => isCompleted;
+            set
+            {
+                isCompleted = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsChecked
+        {
+            get => isChecked;
+            set
+            {
+                isChecked = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(DisplayTitle));
+            }
+        }
+
+        public string DateTask
+        {
+            get => dateTask;
+            set
+            {
+                dateTask = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsImportant
+        {
+            get => isImportant;
+            set
+            {
+                isImportant = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(DisplayTitle));
+            }
+        }
+
         public string Title
         {
-            get { return title; }
-            set {  title = value; }
+            get => title;
+            set
+            {
+                title = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(DisplayTitle));
+            }
         }
 
-        private string content = string.Empty;
+        public string DisplayTitle => (isChecked ? "✔ " : "") + (isImportant ? "★ " : "") + title;
+
         public string Content
         {
-            get { return content; }
-            set { content = value; }
+            get => content;
+            set
+            {
+                content = value;
+                OnPropertyChanged();
+            }
         }
 
-        private ObservableCollection<string> imagesBase64 = new();
         public ObservableCollection<string> ImagesBase64
         {
-            get { return imagesBase64; }
-            set { imagesBase64 = value; }
+            get => imagesBase64;
+            set
+            {
+                imagesBase64 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Priority
+        {
+            get => priority;
+            set
+            {
+                priority = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(PriorityColor));
+                OnPropertyChanged(nameof(DisplayTitle));
+            }
+        }
+
+        public string PriorityColor
+        {
+            get => priority switch
+            {
+                "Низкий" => "#32CD32",      // Зелёный
+                "Средний" => "Gold",   // Жёлтый
+                "Высокий" => "#FF6D2D",     // Оранжевый
+                "Критический" => "Red", // Красный
+                _ => "#FFFFFFFF"           // Белый по умолчанию
+            };
         }
 
         [JsonIgnore]
         public ObservableCollection<BitmapImage> Images { get; set; } = new ObservableCollection<BitmapImage>();
-    }   
+    }
 }

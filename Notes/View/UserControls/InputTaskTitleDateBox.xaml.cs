@@ -1,19 +1,19 @@
-﻿using System.Windows.Controls;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Logic of interapt for InputTaskTitleTextBox.xaml
-    /// </summary>
     public partial class InputTaskTitleTextBox : UserControl
     {
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             "Text",
             typeof(string),
             typeof(InputTaskTitleTextBox),
-            new PropertyMetadata(string.Empty)
-            );
+            new FrameworkPropertyMetadata(
+                string.Empty,
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                new PropertyChangedCallback(OnTextChanged)));
 
         public string Text
         {
@@ -26,16 +26,23 @@ namespace TasksTracker.View.UserControls
             InitializeComponent();
         }
 
+        private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = d as InputTaskTitleTextBox;
+            if (control != null)
+            {
+                control.UpdatePlaceholderVisibility();
+            }
+        }
+
+        private void UpdatePlaceholderVisibility()
+        {
+            Placeholder.Visibility = string.IsNullOrEmpty(Text) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         private void InputedTitle_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (string.IsNullOrEmpty(InputedTitle.Text))
-            {
-                Placeholder.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                Placeholder.Visibility = Visibility.Collapsed;
-            }
+            Text = InputedTitle.Text;
         }
     }
 }

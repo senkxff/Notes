@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="TasksTracker.View.UserControls.PrioritySelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TasksTracker.View.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="120">
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Приоритет" FontWeight="Bold" Margin="0,0,0,5" Foreground="White"/>
+        <ComboBox x:Name="PriorityComboBox" Cursor="Hand" FontSize="16" Background="#1e1e1e"
+                  Foreground="White" SelectedValue="{Binding SelectedTask.Priority, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="Content">
+            <ComboBoxItem Content="Низкий" Background="DarkGreen"/>
+            <ComboBoxItem Content="Средний" Background="Gold"/>
+            <ComboBoxItem Content="Высокий" Background="#FF6D2D"/>
+            <ComboBoxItem Content="Критический" Background="Red"/>
+        </ComboBox>
+    </StackPanel>
+</UserControl>

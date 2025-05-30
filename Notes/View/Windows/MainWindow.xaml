@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:uc="clr-namespace:TasksTracker.View.UserControls"
         xmlns:viewModel="clr-namespace:TasksTracker.ViewModel"
-        xmlns:local="clr-namespace:TasksTracker.View.UserControls"
+        xmlns:converters="clr-namespace:TasksTracker.Converters"
         mc:Ignorable="d"
-        Height="450" Width="800" MinWidth="800"
+        Height="520" Width="900" MinWidth="850"
         WindowStyle="None" Background="#1D1D1D" WindowStartupLocation="CenterScreen">
     <WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="20"/>
@@ -15,48 +15,68 @@
     <Window.DataContext>
         <viewModel:TasksViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <converters:HexToBrushConverter x:Key="HexToBrushConverter"/>
+        <converters:StringToDateConverter x:Key="StringToDateConverter"/>
+    </Window.Resources>
     <Grid>
-        <!-- Grid -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".25*" MaxWidth="305" MinWidth="200"/>
+            <ColumnDefinition Width=".25*" MaxWidth="350" MinWidth="235"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width=".75*"/>
         </Grid.ColumnDefinitions>
 
         <Rectangle Grid.RowSpan="3" Fill="#191919"/>
         <GridSplitter Width="5" Grid.Column="1" Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      Background="Red" ShowsPreview="True"/>
+                      Background="#8a2be2" ShowsPreview="True"/>
 
-        <!-- Main Buttons -->
-        <uc:AddTaskInCollectionButton Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 5 0"
-                      ToolTip="Добавить новую заметку" Command="{Binding AddTaskCommand}"/>
-
+        <StackPanel Orientation="Horizontal">
+            <uc:ChangeAccountButton Margin="10 0 0 0" VerticalAlignment="Bottom" ToolTip="Сменить аккаунт" Command="{Binding ChangeAccountCommand}"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Планировщик задач" VerticalAlignment="Bottom" Foreground="#8a2be2" 
+           FontSize="23" FontFamily="Mistral" Margin="10 0 5 0" HorizontalAlignment="Right"/>
+            
+        </StackPanel>
+        <uc:AddTaskInCollectionButton HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5 0 5 0"
+                              ToolTip="Добавить новую задачу" Command="{Binding AddTaskCommand}"/>
         <uc:ExitButton x:Name="ExitBtn" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 0"
-                       MouseLeftButtonDown="ExitBtn_MouseLeftButtonDown"/>
+                       MouseLeftButtonDown="ExitBtn_MouseLeftButtonDown" ToolTip="Закрыть приложение"/>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="Трекер задач" VerticalAlignment="Bottom" Foreground="Red" HorizontalAlignment="Left" 
-                   FontSize="18" FontWeight="UltraBold" FontFamily="Mistral" Margin="10 0 0 0"/>
+        
 
-        <!-- Title -->
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Ваши задачи:" VerticalAlignment="Top" FontSize="23" Foreground="White" 
                    Margin="10 10 0 0" FontFamily="Br"/>
-        <uc:InputTaskTitleTextBox Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left"
-                   FontSize="20" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
-                   BorderThickness="0" VerticalAlignment="Bottom" Margin="5,0,0,0"/>
+        <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <uc:CreateImportantButton HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Пометить важной" 
+                                      Command="{Binding MarkAsImportantCommand}"/>
+            <uc:CheckedTaskButton VerticalAlignment="Bottom" Margin="5 0 0 0" ToolTip="Пометить выполненной" Command="{Binding MarkAsCheckedCommand}"/>
+            
+            <uc:CalenderButton x:Name="CalenderButton" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Bottom" ToolTip="Выбрать дату из календаря"
+                               MouseLeftButtonDown="CalenderButton_MouseLeftButtonDown"/>
+            <uc:InputTaskTitleTextBox HorizontalAlignment="Left" FontSize="20" Foreground="White" FontWeight="Black" FontFamily="Ebrima" Background="Transparent"
+                                      BorderThickness="0" VerticalAlignment="Bottom" Margin="5,0,0,0" 
+                                      Text="{Binding SelectedTask.DateTask, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <uc:PrioritySelector Width="65" Height="27" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Bottom" ToolTip="Выбрать приоритет"/>
+        </StackPanel>
+        <Calendar x:Name="calendar" Visibility="Collapsed" SelectedDate="{Binding SelectedTask.DateTask, Converter={StaticResource StringToDateConverter}, Mode=TwoWay}" 
+                  Grid.Column="2" Grid.Row="1" Panel.ZIndex="3" HorizontalAlignment="Left"/>
 
-        <!-- Notes List -->
         <ListBox Grid.Row="1" Name="NotesViewCollection" ItemsSource="{Binding Tasks}" Background="Transparent" 
-                 Foreground="White" DisplayMemberPath="Title" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                 Foreground="White" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
                  Height="auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                 SelectedItem="{Binding SelectedNote, Mode=TwoWay}" BorderThickness="0" FontSize="16" 
-                 FontWeight="ExtraBold" Margin="10 40 0 0" VerticalAlignment="Top"/>
+                 SelectedItem="{Binding SelectedTask, Mode=TwoWay}" BorderThickness="0" FontSize="16" 
+                 FontWeight="ExtraBold" Margin="10 40 0 0" VerticalAlignment="Top">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding DisplayTitle}" Foreground="{Binding PriorityColor, Converter={StaticResource HexToBrushConverter}}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-        <!-- Note Content -->
-        <Grid Grid.Row="2" Grid.Column="2" Margin="5">
+        <Grid Grid.Row="1" Grid.Column="2" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
@@ -64,7 +84,6 @@
 
             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
                 <StackPanel>
-                    <!-- Image -->
                     <ItemsControl ItemsSource="{Binding SelectedTask.Images}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -78,33 +97,26 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <!-- Text -->
-                    <TextBox x:Name="Title" FontSize="25" Background="Transparent" Foreground="White" FontWeight="Black"
-                       Text="{Binding SelectedTask.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                       TextWrapping="Wrap" Margin="0 0 0 0" CaretBrush="White" BorderThickness="0"/>
+                    <TextBox x:Name="Title" FontSize="25" Background="Transparent" Foreground="{Binding SelectedTask.PriorityColor, Converter={StaticResource HexToBrushConverter}}" 
+                             FontWeight="Black" Text="{Binding SelectedTask.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                             TextWrapping="Wrap" Margin="0 0 0 0" CaretBrush="White" BorderThickness="0"/>
                     <TextBlock x:Name="Content" FontSize="18" Background="Transparent" Foreground="White" 
                                Text="{Binding SelectedTask.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
-
                 </StackPanel>
             </ScrollViewer>
 
-
-            <!-- Input Panel -->
             <Grid Grid.Row="1" HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <uc:InputTaskTextTextBox Grid.Row="1"
-                            Text="{Binding SelectedTask.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            Margin="10,0,0,10"/>
+                <uc:InputTaskTextTextBox Grid.Row="1" Text="{Binding SelectedTask.Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10,0,0,10"/>
 
-                <!-- Action Buttons -->
                 <StackPanel Grid.Column="1" Orientation="Vertical" Margin="5,0,25,15" VerticalAlignment="Bottom">
                     <uc:AddTaskInJsonButton Margin="0,0,0,5" ToolTip="Добавить в облако" Command="{Binding SaveTaskCommand}"/>
                     <uc:PinImageButton Margin="0,0,0,5" ToolTip="Прикрепить изображение" Command="{Binding AddImageCommand}"/>
-                    <uc:DeleteTaskButton ToolTip="Удалить заметку" Command="{Binding DeleteTaskCommand}"/>
+                    <uc:DeleteTaskButton ToolTip="Удалить задачу" Command="{Binding DeleteTaskCommand}"/>
                 </StackPanel>
             </Grid>
         </Grid>
