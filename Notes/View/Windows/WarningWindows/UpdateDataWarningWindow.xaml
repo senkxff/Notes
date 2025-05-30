@@ -6,20 +6,20 @@
         xmlns:local="clr-namespace:TasksTracker.View.Windows.WarningWindows"
         mc:Ignorable="d"
         xmlns:uc="clr-namespace:TasksTracker.View.UserControls"
-        WindowStyle="None" WindowStartupLocation="CenterOwner"
+        WindowStyle="None" WindowStartupLocation="CenterOwner" Background="#151515"
         Title="UpdateDataWarningWindow" 
-        Height="120" Width="250" Background="#151515">
+        Height="120" Width="250">
     <WindowChrome.WindowChrome>
     <WindowChrome CornerRadius="10"/>
     </WindowChrome.WindowChrome>
     <Grid>  
-        <TextBlock Text="Задачи были успешно синхронизированы!" Foreground="White" FontSize="16" Width="172"
-           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,10,0,0" TextWrapping="Wrap"/>
+        <TextBlock 
+            Text="Задачи были успешно синхронизированы!" Foreground="White" FontSize="16" TextWrapping="Wrap"
+            Width="172" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,10,0,0"/>
 
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" 
-            Margin="0 50 0 0">
-            <uc:RedButton x:Name="AgreeButton" Margin="0 0 10 0" Placeholder="Понятно" 
-                  PreviewMouseLeftButtonDown="AgreeButton_PreviewMouseLeftButtonDown"/>
-        </StackPanel>
+        <uc:RedButton x:Name="AgreeButton" 
+                          Margin="0 60 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                          Placeholder="Понятно" 
+                          PreviewMouseLeftButtonDown="AgreeButton_PreviewMouseLeftButtonDown"/>
     </Grid>
 </Window>

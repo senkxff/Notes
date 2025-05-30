@@ -3,9 +3,6 @@ using System.Windows.Input;
 
 namespace TasksTracker.View.Windows.WarningWindows
 {
-    /// <summary>
-    /// Logic of interapt for DeleteAllTasksWarningWindow.xaml
-    /// </summary>
     public partial class DeleteAllTasksWarningWindow : Window
     {
         public DeleteAllTasksWarningWindow()

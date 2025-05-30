@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="DeleteTaskBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/DeleteTaskButton.png" Cursor="Hand"
+        <Image x:Name="DeleteTaskBtn" 
+               Source="pack://application:,,,/TasksTracker;component/View/Resources/DeleteTaskButton.png" 
+               Cursor="Hand"
                PreviewMouseLeftButtonDown="DeleteTaskBtn_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>

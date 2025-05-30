@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Logic of interapt for PinFileButton.xaml
-    /// </summary>
     public partial class PinImageButton : UserControl
     {
         private static readonly DependencyProperty CommandProperty = DependencyProperty.Register(

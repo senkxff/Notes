@@ -3,9 +3,6 @@ using System.Windows.Controls;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Логика взаимодействия для FindTextBox.xaml
-    /// </summary>
     public partial class FindTextBox : UserControl
     {
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
@@ -22,6 +19,7 @@ namespace TasksTracker.View.UserControls
             get { return (string)GetValue(TextProperty); }
             set { SetValue(TextProperty, value); }
         }
+
         public FindTextBox()
         {
             InitializeComponent();

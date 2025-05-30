@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -22,8 +19,8 @@ namespace TasksTracker.ViewModel
 {
     class TasksViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -66,7 +63,6 @@ namespace TasksTracker.ViewModel
                     if (selectedTask != null)
                     {
                         selectedTask.PropertyChanged += Task_PropertyChanged;
-                        System.Diagnostics.Debug.WriteLine($"SelectedTask Priority: {selectedTask.Priority}");
                     }
                     OnPropertyChanged();
                 }
@@ -107,11 +103,10 @@ namespace TasksTracker.ViewModel
             }
         }
 
-        private void Task_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void Task_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(TaskModel.DateTask) || e.PropertyName == nameof(TaskModel.IsImportant) || e.PropertyName == nameof(TaskModel.Priority))
             {
-                System.Diagnostics.Debug.WriteLine($"Property changed: {e.PropertyName}, Task: {((TaskModel)sender).Title}");
                 SortTasks();
             }
         }
@@ -130,50 +125,72 @@ namespace TasksTracker.ViewModel
                 return date;
             }
 
-            System.Diagnostics.Debug.WriteLine($"Invalid DateTask format: {dateTask}");
             return DateTime.MaxValue;
         }
 
         private int GetPriorityOrder(string priority)
         {
-            return priority switch
+            switch (priority)
             {
-                "Критический" => 4,
-                "Высокий" => 3,
-                "Средний" => 2,
-                "Низкий" => 1,
-                _ => 0
-            };
+                case "Критический":
+                    return 4;
+                case "Высокий":
+                    return 3;
+                case "Средний":
+                    return 2;
+                case "Низкий":
+                    return 1;
+                default:
+                    return 0;
+            }
         }
 
         private void SortTasks()
         {
             var currentSelectedTask = SelectedTask;
-            var pinnedTasks = tasks.Where(t => t.IsImportant)
-                                  .OrderByDescending(t => GetPriorityOrder(t.Priority))
-                                  .ThenByDescending(t => ParseDateTask(t.DateTask))
-                                  .ToList();
-            var nonPinnedTasks = tasks.Where(t => !t.IsImportant)
-                                     .OrderByDescending(t => GetPriorityOrder(t.Priority))
-                                     .ThenByDescending(t => ParseDateTask(t.DateTask))
-                                     .ToList();
+
+            var pinnedTasks = new List<TaskModel>();
+            var nonPinnedTasks = new List<TaskModel>();
+
+            foreach (var task in tasks)
+            {
+                if (task.IsImportant)
+                {
+                    pinnedTasks.Add(task);
+                }
+                else
+                {
+                    nonPinnedTasks.Add(task);
+                }
+            }
+
+            pinnedTasks.Sort((a, b) =>
+            {
+                int priorityComparison = GetPriorityOrder(b.Priority).CompareTo(GetPriorityOrder(a.Priority));
+                return priorityComparison != 0 ? priorityComparison : ParseDateTask(a.DateTask).CompareTo(ParseDateTask(b.DateTask));
+            });
+
+            nonPinnedTasks.Sort((a, b) =>
+            {
+                int priorityComparison = GetPriorityOrder(b.Priority).CompareTo(GetPriorityOrder(a.Priority));
+                return priorityComparison != 0 ? priorityComparison : ParseDateTask(a.DateTask).CompareTo(ParseDateTask(b.DateTask));
+            });
 
             Application.Current.Dispatcher.Invoke(() =>
             {
                 tasks.Clear();
-                foreach (var task in pinnedTasks.Concat(nonPinnedTasks))
+                foreach (var task in pinnedTasks)
                 {
                     tasks.Add(task);
                 }
+                foreach (var task in nonPinnedTasks)
+                {
+                    tasks.Add(task);
+                }
+
                 OnPropertyChanged(nameof(Tasks));
-                if (currentSelectedTask != null && tasks.Contains(currentSelectedTask))
-                {
-                    SelectedTask = currentSelectedTask;
-                }
-                else if (tasks.Count > 0)
-                {
-                    SelectedTask = tasks[0];
-                }
+
+                SelectedTask = tasks.Contains(currentSelectedTask) ? currentSelectedTask : tasks.FirstOrDefault();
             });
         }
 
@@ -183,10 +200,9 @@ namespace TasksTracker.ViewModel
             if (SelectedTask != null)
             {
                 SelectedTask.IsChecked = !SelectedTask.IsChecked;
-                System.Diagnostics.Debug.WriteLine($"MarkAsChecked: Title={SelectedTask.Title}, IsChecked={SelectedTask.IsChecked}");
 
                 OnPropertyChanged(nameof(SelectedTask));
-                await Task.Delay(10000);
+                await Task.Delay(5000);
 
                 if (Tasks.Contains(SelectedTask))
                 {
@@ -221,7 +237,6 @@ namespace TasksTracker.ViewModel
             if (SelectedTask != null)
             {
                 SelectedTask.IsImportant = !SelectedTask.IsImportant;
-                System.Diagnostics.Debug.WriteLine($"MarkAsImportant: Title={SelectedTask.Title}, IsImportant={SelectedTask.IsImportant}");
                 SortTasks();
             }
             else
@@ -424,7 +439,7 @@ namespace TasksTracker.ViewModel
                     updateDataWarningWindow.ShowDialog();
                 });
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await Application.Current.Dispatcher.InvokeAsync(() =>
                 {
@@ -534,8 +549,13 @@ namespace TasksTracker.ViewModel
         {
             try
             {
-                string tokenFile = Path.Combine("token.json", $"Google.Apis.Auth.OAuth2.Responses.TokenResponse-{Environment.UserName}");
+                string localTasksFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TasksCollection.json");
+                if (File.Exists(localTasksFile))
+                {
+                    File.Delete(localTasksFile);
+                }
 
+                string tokenFile = Path.Combine("token.json", $"Google.Apis.Auth.OAuth2.Responses.TokenResponse-{Environment.UserName}");
                 if (File.Exists(tokenFile))
                 {
                     File.Delete(tokenFile);
@@ -577,19 +597,53 @@ namespace TasksTracker.ViewModel
                             await downloadRequest.DownloadAsync(memoryStream);
                             memoryStream.Position = 0;
 
-                            string localFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TasksCollection.json");
-                            using (var fileStream = File.Create(localFilePath))
+                            using (var fileStream = File.Create(localTasksFile))
                             {
                                 memoryStream.Seek(0, SeekOrigin.Begin);
                                 await memoryStream.CopyToAsync(fileStream);
                             }
+                        }
+                        else
+                        {
+                            var emptyTasks = new ObservableCollection<TaskModel>
+                            {
+                                new TaskModel { Title = "Новая задача", Content = "", DateTask = "Сегодня", Priority = "Низкий" }
+                            };
 
-                            await LoadTasksAsync();
-                            await LoadImagesAsync();
+                            var settings = new JsonSerializerSettings
+                            {
+                                Formatting = Formatting.Indented,
+                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                            };
+
+                            string json = JsonConvert.SerializeObject(emptyTasks, settings);
+                            await File.WriteAllTextAsync(localTasksFile, json);
+
+                            var fileMetadata = new Google.Apis.Drive.v3.Data.File
+                            {
+                                Name = "TasksCollection.json"
+                            };
+
+                            using (var uploadStream = new FileStream(localTasksFile, FileMode.Open))
+                            {
+                                await service.Files.Create(fileMetadata, uploadStream, "application/json")
+                                    .UploadAsync();
+                            }
                         }
 
-                        await Application.Current.Dispatcher.InvokeAsync(() =>
+                        await Application.Current.Dispatcher.InvokeAsync(async () =>
                         {
+                            await LoadTasksAsync();
+                            await LoadImagesAsync();
+
+                            if (Tasks.Count == 0)
+                            {
+                                var newTask = new TaskModel { Title = "Новая задача", Content = "", DateTask = "Сегодня", Priority = "Низкий" };
+                                newTask.PropertyChanged += Task_PropertyChanged;
+                                Tasks.Add(newTask);
+                                SelectedTask = newTask;
+                            }
+
                             ChangeAccountWarningWindow changeAccountWarningWindow = new ChangeAccountWarningWindow();
                             Window ownerWindow = Window.GetWindow(Application.Current.MainWindow);
                             changeAccountWarningWindow.Owner = ownerWindow;
@@ -605,6 +659,30 @@ namespace TasksTracker.ViewModel
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при смене аккаунта: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                string localTasksFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TasksCollection.json");
+                if (!File.Exists(localTasksFile))
+                {
+                    var emptyTasks = new ObservableCollection<TaskModel>
+            {
+                new TaskModel { Title = "Новая задача", Content = "", DateTask = "Сегодня", Priority = "Низкий" }
+            };
+
+                    var settings = new JsonSerializerSettings
+                    {
+                        Formatting = Formatting.Indented,
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    };
+
+                    string json = JsonConvert.SerializeObject(emptyTasks, settings);
+                    await File.WriteAllTextAsync(localTasksFile, json);
+
+                    await Application.Current.Dispatcher.InvokeAsync(async () =>
+                    {
+                        await LoadTasksAsync();
+                        await LoadImagesAsync();
+                    });
+                }
             }
         }
     }

@@ -3,9 +3,6 @@ using System.Windows.Controls;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Logic of interapt for GrayButton.xaml
-    /// </summary>
     public partial class GrayButton : UserControl
     {
         public static readonly DependencyProperty PlaceholderProperty = DependencyProperty.Register(

@@ -3,9 +3,6 @@ using System.Windows.Controls;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Logic of interapt for TextBox.xaml
-    /// </summary>
     public partial class TextBox : UserControl
     {
         public static readonly DependencyProperty PlaceholderProperty = DependencyProperty.Register(

@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Logic of interapt for AddTaskInCollectionButton.xaml
-    /// </summary>
     public partial class AddTaskInCollectionButton : UserControl
     {
         public static readonly DependencyProperty CommandProperty = DependencyProperty.Register(

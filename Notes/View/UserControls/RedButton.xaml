@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:TasksTracker.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="80">
-
     <UserControl.Resources>
         <Style x:Key="ModernButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Red"/>
@@ -39,7 +38,8 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button Style="{StaticResource ModernButtonStyle}" FontWeight="ExtraBold" 
-               Content="{Binding Placeholder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RedButton}}}"/>
+        <Button Style="{StaticResource ModernButtonStyle}" 
+                FontWeight="ExtraBold" 
+                Content="{Binding Placeholder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:RedButton}}}"/>
     </Grid>
 </UserControl>

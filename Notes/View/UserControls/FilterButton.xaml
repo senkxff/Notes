@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TasksTracker.View.UserControls"
              mc:Ignorable="d" 
-                      Height="25" Width="25">
+             Height="25" Width="25">
     <Button x:Name="Filter"
     Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Command}"
     Cursor="Hand"
@@ -35,6 +35,9 @@
                 </Setter>
             </Style>
         </Button.Style>
-        <Image x:Name="FilterBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/FilterButton.png" Cursor="Hand" Stretch="Uniform"/>
+        
+        <Image x:Name="FilterBtn" 
+               Source="pack://application:,,,/TasksTracker;component/View/Resources/FilterButton.png" 
+               Cursor="Hand" Stretch="Uniform"/>
     </Button>
 </UserControl>

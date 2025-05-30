@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Логика взаимодействия для CreateImportantButton.xaml
-    /// </summary>
     public partial class CreateImportantButton : UserControl
     {
         private static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
@@ -15,6 +12,7 @@ namespace TasksTracker.View.UserControls
             typeof(CreateImportantButton),
             new PropertyMetadata(null)
             );
+
         public ICommand Command
         {
             get { return (ICommand)GetValue(CommandProperty); }

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Button x:Name="CreateImportantBtn" 
+        <Button x:Name="CheckedTask" 
         Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Command}"
         Cursor="Hand"
         Background="Transparent"
@@ -36,8 +36,10 @@
                     </Setter>
                 </Style>
             </Button.Style>
-            <Image Source="pack://application:,,,/TasksTracker;component/View/Resources/CheckedTaskButton.png" 
-           Stretch="Uniform"/>
+            
+            <Image x:Name="CheckedTaskBtn"
+                Source="pack://application:,,,/TasksTracker;component/View/Resources/CheckedTaskButton.png" 
+                Stretch="Uniform"/>
         </Button>
     </Grid>
 </UserControl>

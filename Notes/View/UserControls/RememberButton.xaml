@@ -5,12 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TasksTracker.View.UserControls"
              mc:Ignorable="d" 
-                               Height="25" Width="25">
+             Height="25" Width="25">
     <Button x:Name="Remember" 
-Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Command}"
-Cursor="Hand"
-Background="Transparent"
-BorderThickness="0">
+            Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Command}"
+            Cursor="Hand"
+            Background="Transparent"
+            BorderThickness="0">
         <Button.Style>
             <Style TargetType="Button">
                 <Setter Property="Background" Value="Transparent"/>
@@ -19,7 +19,7 @@ BorderThickness="0">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
+                                    BorderThickness="{TemplateBinding BorderThickness}">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -35,6 +35,8 @@ BorderThickness="0">
                 </Setter>
             </Style>
         </Button.Style>
-        <Image x:Name="RememberBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/RememberButton.png" Cursor="Hand" Stretch="Uniform"/>
+        <Image x:Name="RememberBtn" 
+               Source="pack://application:,,,/TasksTracker;component/View/Resources/RememberButton.png" 
+               Cursor="Hand" Stretch="Uniform"/>
     </Button>
 </UserControl>

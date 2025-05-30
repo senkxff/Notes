@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TasksTracker.View.UserControls"
              mc:Ignorable="d" 
              Height="25" Width="25">
-    <Button x:Name="CreateImportantBtn" 
+    <Button x:Name="ChangeAccount" 
         Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Command}"
         Cursor="Hand"
         Background="Transparent"
@@ -19,7 +19,7 @@
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
+                                    BorderThickness="{TemplateBinding BorderThickness}">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -35,6 +35,9 @@
                 </Setter>
             </Style>
         </Button.Style>
-        <Image x:Name="ChangeAccountBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/ChangeAccountButton.png" Cursor="Hand" Stretch="Uniform" MouseLeftButtonDown="ChangeAccountBtn_MouseLeftButtonDown"/>
+        
+        <Image x:Name="ChangeAccountBtn" 
+               Source="pack://application:,,,/TasksTracker;component/View/Resources/ChangeAccountButton.png" 
+               Cursor="Hand" Stretch="Uniform"/>
     </Button>
 </UserControl>

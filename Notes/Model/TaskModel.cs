@@ -7,22 +7,21 @@ using Newtonsoft.Json;
 namespace TasksTracker.Model
 {
     public class TaskModel : INotifyPropertyChanged
-    {
-        private bool isCompleted;
-        private bool isChecked;
-        private string dateTask = "Сегодня";
-        private bool isImportant;
-        private string title = "Новая задача";
-        private string content = "";
-        private string priority = "Низкий";
-        private ObservableCollection<string> imagesBase64 = new();
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {          
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (propertyName == null)
+            {
+                return;
+            }
+            else
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
+        private bool isCompleted;
         public bool IsCompleted
         {
             get => isCompleted;
@@ -33,6 +32,7 @@ namespace TasksTracker.Model
             }
         }
 
+        private bool isChecked;
         public bool IsChecked
         {
             get => isChecked;
@@ -44,6 +44,7 @@ namespace TasksTracker.Model
             }
         }
 
+        private string dateTask = "Сегодня";
         public string DateTask
         {
             get => dateTask;
@@ -54,6 +55,7 @@ namespace TasksTracker.Model
             }
         }
 
+        private bool isImportant;
         public bool IsImportant
         {
             get => isImportant;
@@ -65,6 +67,7 @@ namespace TasksTracker.Model
             }
         }
 
+        private string title = "Новая задача";
         public string Title
         {
             get => title;
@@ -78,6 +81,7 @@ namespace TasksTracker.Model
 
         public string DisplayTitle => (isChecked ? "✔ " : "") + (isImportant ? "★ " : "") + title;
 
+        private string content = "";
         public string Content
         {
             get => content;
@@ -88,6 +92,7 @@ namespace TasksTracker.Model
             }
         }
 
+        private ObservableCollection<string> imagesBase64 = new();
         public ObservableCollection<string> ImagesBase64
         {
             get => imagesBase64;
@@ -98,6 +103,7 @@ namespace TasksTracker.Model
             }
         }
 
+        private string priority = "Низкий";
         public string Priority
         {
             get => priority;
@@ -112,14 +118,26 @@ namespace TasksTracker.Model
 
         public string PriorityColor
         {
-            get => priority switch
+            get
             {
-                "Низкий" => "#32CD32",      // Зелёный
-                "Средний" => "Gold",   // Жёлтый
-                "Высокий" => "#FF6D2D",     // Оранжевый
-                "Критический" => "Red", // Красный
-                _ => "#FFFFFFFF"           // Белый по умолчанию
-            };
+                switch (priority)
+                {
+                    case "Низкий":
+                        return "#32CD32";   // Зелёный
+
+                    case "Средний":
+                        return "Gold";      // Жёлтый
+
+                    case "Высокий":
+                        return "#FF6D2D";   // Оранжевый
+
+                    case "Критический":
+                        return "Red";       // Красный
+
+                    default:
+                        return "#FFFFFFFF"; // Белый
+                }
+            }
         }
 
         [JsonIgnore]

@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Логика взаимодействия для ChangeAccountButton.xaml
-    /// </summary>
     public partial class ChangeAccountButton : UserControl
     {
         private static readonly DependencyProperty CommandProperty = DependencyProperty.Register(
@@ -25,11 +22,6 @@ namespace TasksTracker.View.UserControls
         public ChangeAccountButton()
         {
             InitializeComponent();
-        }
-
-        private void ChangeAccountBtn_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
         }
     }
 }

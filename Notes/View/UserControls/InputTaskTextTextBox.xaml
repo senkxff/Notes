@@ -9,12 +9,19 @@
              Height="100">
     <Border CornerRadius="10" Background="White">
         <Grid>
-            <TextBlock x:Name="Placeholder" Text="Введите текст..." FontSize="16" Foreground="Gray" Margin="5 5 0 0" 
-                       Panel.ZIndex="0"/>
-            <TextBox x:Name="InputedText" Background="Transparent" Panel.ZIndex="1" Width="auto" Height="auto" FontSize="16" 
-                     Margin="4 5 0 0" TextWrapping="Wrap" BorderThickness="0" VerticalAlignment="Stretch" AcceptsReturn="True" 
-                     TextChanged="InputedText_TextChanged" HorizontalAlignment="Stretch" 
-                     Text="{Binding Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:InputTaskTextTextBox}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock x:Name="Placeholder" 
+                       Text="Введите текст..." FontSize="16" Foreground="Gray" 
+                       Margin="5 5 0 0" Panel.ZIndex="0"/>
+                       
+            <TextBox x:Name="InputedText" 
+                     Background="Transparent" BorderThickness="0"
+                     Panel.ZIndex="1" Width="auto" Height="auto" Margin="4 5 0 0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+                     FontSize="16" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="InputedText_TextChanged"                      
+                     Text="{Binding Text, 
+                                    RelativeSource={RelativeSource Mode=FindAncestor, 
+                                                                   AncestorType={x:Type local:InputTaskTextTextBox}}, 
+                                                                   Mode=TwoWay, 
+                                                                   UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
     </Border>
 </UserControl>
