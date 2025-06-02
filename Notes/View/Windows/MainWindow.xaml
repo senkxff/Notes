@@ -99,6 +99,9 @@
             <uc:RememberButton 
                 Margin="5 0 0 0" 
                 ToolTip="Включить напоминания"/>
+            <uc:CreateFolderButton
+                Margin="5 0 0 0"
+                ToolTip="Добавить раздел"/>
         </StackPanel>
 
         <Calendar x:Name="calendar" 
