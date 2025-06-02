@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="AddTaskInJsonBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/AddTaskInJsonButton.png" Cursor="Hand" 
+        <Image x:Name="AddTaskInJsonBtn" 
+               Source="pack://application:,,,/TasksTracker;component/View/Resources/AddTaskInJsonButton.png" 
+               Cursor="Hand" 
                MouseLeftButtonDown="AddTaskInJsonBtn_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>

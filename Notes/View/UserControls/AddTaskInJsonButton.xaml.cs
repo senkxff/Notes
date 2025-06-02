@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Logic of interapt for AddTaskInJsonButton.xaml
-    /// </summary>
     public partial class AddTaskInJsonButton : UserControl
     {
         private static readonly DependencyProperty CommandProperty = DependencyProperty.Register(

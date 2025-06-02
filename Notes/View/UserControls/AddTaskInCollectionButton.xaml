@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              Height="25" Width="25">
     <Grid>
-        <Image x:Name="AddTaskInCollectionBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/AddTaskInCollectionButton.png" Cursor="Hand" 
+        <Image x:Name="AddTaskInCollectionBtn" 
+               Source="pack://application:,,,/TasksTracker;component/View/Resources/AddTaskInCollectionButton.png" 
+               Cursor="Hand" 
                MouseLeftButtonDown="AddTaskInCollectionBtn_MouseLeftButtonDown"/>
     </Grid>
 </UserControl>

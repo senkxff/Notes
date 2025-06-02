@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Logic of interapt for DeleteTaskButton.xaml
-    /// </summary>
     public partial class DeleteTaskButton : UserControl
     {
         private readonly static DependencyProperty CommandProperty = DependencyProperty.Register(

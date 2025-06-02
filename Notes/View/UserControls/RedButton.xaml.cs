@@ -3,9 +3,6 @@ using System.Windows.Controls;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Logic of interapt for RedButton.xaml
-    /// </summary>
     public partial class RedButton : UserControl
     {
         public static readonly DependencyProperty PlaceholderProperty =

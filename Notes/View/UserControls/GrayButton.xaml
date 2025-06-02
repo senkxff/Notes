@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:TasksTracker.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="25" d:DesignWidth="80">
-
     <UserControl.Resources>
         <Style x:Key="ModernButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#1e1e1e"/>
@@ -21,8 +20,7 @@
                                 Background="{TemplateBinding Background}" 
                                 CornerRadius="10"
                                 Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                              VerticalAlignment="Center"/>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -39,6 +37,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button x:Name="GrayBtn" Style="{StaticResource ModernButtonStyle}" Content="{Binding Placeholder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:GrayButton}}}" FontWeight="ExtraBold"/>
+        <Button x:Name="GrayBtn" 
+                Style="{StaticResource ModernButtonStyle}" 
+                Content="{Binding Placeholder, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:GrayButton}}}" 
+                FontWeight="ExtraBold"/>
     </Grid>
 </UserControl>

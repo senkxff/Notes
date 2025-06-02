@@ -5,20 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TasksTracker.View.Windows.WarningWindows"
         xmlns:uc="clr-namespace:TasksTracker.View.UserControls"
-        mc:Ignorable="d" WindowStyle="None" WindowStartupLocation="CenterOwner"
-        Title="ExitWarningWindow" Height="120" Width="250" Background="#151515">
+        mc:Ignorable="d" 
+        WindowStyle="None" WindowStartupLocation="CenterOwner" Background="#151515"
+        Title="ExitWarningWindow" 
+        Height="120" Width="250">
     <WindowChrome.WindowChrome>
         <WindowChrome CornerRadius="10"/>
     </WindowChrome.WindowChrome>
     <Grid>
-        <TextBlock Text="Вы действитльно хотите выйти?" Foreground="White" FontSize="16" HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" Margin="0,0,0,50"/>
+        <TextBlock 
+            Text="Вы действитльно хотите выйти?" Foreground="White" FontSize="16" 
+            HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,50"/>
 
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 50 0 0">
-            <uc:RedButton x:Name="YesButton" Margin="0 0 10 0" 
-                          PreviewMouseLeftButtonDown="YesButton_PreviewMouseLeftButtonDown" Placeholder="Да"/>
-            <uc:GrayButton x:Name="NoButton" PreviewMouseLeftButtonDown="NoButton_PreviewMouseLeftButtonDown" 
-                           Placeholder="Нет"/>
+            <uc:RedButton x:Name="YesButton" 
+                          Margin="0 0 10 0" 
+                          Placeholder="Да"
+                          PreviewMouseLeftButtonDown="YesButton_PreviewMouseLeftButtonDown"/>
+            
+            <uc:GrayButton x:Name="NoButton" 
+                           Placeholder="Нет"
+                           PreviewMouseLeftButtonDown="NoButton_PreviewMouseLeftButtonDown"/>
         </StackPanel>
     </Grid>
 </Window>

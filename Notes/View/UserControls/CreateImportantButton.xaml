@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              Height="25" Width="25">
-    <Button x:Name="CreateImportantBtn" 
+    <Button x:Name="CreateImportant" 
             Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Command}"
             Cursor="Hand"
             Background="Transparent"
@@ -34,7 +34,9 @@
                 </Setter>
             </Style>
         </Button.Style>
-        <Image Source="pack://application:,,,/TasksTracker;component/View/Resources/CreateImportantTaskButton.png" 
+        
+        <Image x:Name="CreateImportantBtn"
+               Source="pack://application:,,,/TasksTracker;component/View/Resources/CreateImportantTaskButton.png" 
                Stretch="Uniform"/>
     </Button>
 </UserControl>

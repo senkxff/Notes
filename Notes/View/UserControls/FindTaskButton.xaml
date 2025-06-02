@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TasksTracker.View.UserControls"
              mc:Ignorable="d" 
              Height="25" Width="25">
-    <Button x:Name="CreateImportantBtn" 
+    <Button x:Name="FindTask" 
     Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Command}"
     Cursor="Hand"
     Background="Transparent"
@@ -35,6 +35,9 @@
                 </Setter>
             </Style>
         </Button.Style>
-        <Image x:Name="FindTaskBtn" Source="pack://application:,,,/TasksTracker;component/View/Resources/FindTaskButton.png" Cursor="Hand" Stretch="Uniform"/>
+        
+        <Image x:Name="FindTaskBtn" 
+               Source="pack://application:,,,/TasksTracker;component/View/Resources/FindTaskButton.png" 
+               Cursor="Hand" Stretch="Uniform"/>
     </Button>
 </UserControl>

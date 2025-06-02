@@ -20,6 +20,7 @@
     <None Remove="View\Resources\CalendarButton.png" />
     <None Remove="View\Resources\ChangeAccountButton.png" />
     <None Remove="View\Resources\CheckedTaskButton.png" />
+    <None Remove="View\Resources\CreateFolderButton.png" />
     <None Remove="View\Resources\CreateImportantTaskButton.png" />
     <None Remove="View\Resources\ExitButton.png" />
     <None Remove="View\Resources\FilterButton.png" />
@@ -45,6 +46,7 @@
     <Resource Include="View\Resources\CalendarButton.png" />
     <Resource Include="View\Resources\ChangeAccountButton.png" />
     <Resource Include="View\Resources\CheckedTaskButton.png" />
+    <Resource Include="View\Resources\CreateFolderButton.png" />
     <Resource Include="View\Resources\CreateImportantTaskButton.png" />
     <Resource Include="View\Resources\DeleteTaskButton.png" />
     <Resource Include="View\Resources\ExitButton.png" />

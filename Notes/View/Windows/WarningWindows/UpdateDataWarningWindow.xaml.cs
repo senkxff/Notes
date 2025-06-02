@@ -3,9 +3,6 @@ using System.Windows.Input;
 
 namespace TasksTracker.View.Windows.WarningWindows
 {
-    /// <summary>
-    /// Логика взаимодействия для UpdateDataWarningWindow.xaml
-    /// </summary>
     public partial class UpdateDataWarningWindow : Window
     {
         public UpdateDataWarningWindow()

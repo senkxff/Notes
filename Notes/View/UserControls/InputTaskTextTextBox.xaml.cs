@@ -3,9 +3,6 @@ using System.Windows;
 
 namespace TasksTracker.View.UserControls
 {
-    /// <summary>
-    /// Logic of interapt for InputNoteTextTextBox.xaml
-    /// </summary>
     public partial class InputTaskTextTextBox : UserControl
     {
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
